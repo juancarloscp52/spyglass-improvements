@@ -3,7 +3,7 @@
   "id": "spyglass-improvements",
   "version": "${version}",
   "name": "Spyglass Improvements",
-  "description": "Enhance Minecraft's Spyglass with adjustable zoom",
+  "description": "Enhance Minecraft's Spyglass with adjustable zoom, quick access and various spyglass overlays.",
   "authors": [
     "juancarloscp52 (Im_jc)"
   ],
