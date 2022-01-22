@@ -22,6 +22,8 @@ public class MinecraftClientMixin {
     public void stopUsing(ClientPlayerInteractionManager instance, PlayerEntity player){
         instance.stopUsingItem(player);
         MinecraftClient client = MinecraftClient.getInstance();
+
+        // When stop using, reset spyglass position if it was changed.
         if(SpyglassImprovementsClient.useSpyglass.wasPressed()){
             ((KeyBindingInvoker) SpyglassImprovementsClient.useSpyglass).invokeReset();
             int slot = SpyglassImprovementsClient.slot;

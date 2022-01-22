@@ -19,9 +19,6 @@
     "client": [
       "me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient"
     ],
-    "main": [
-      "me.juancarloscp52.spyglass_improvements.SpyglassImprovements"
-    ],
     "modmenu": [
       "me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsModMenu"
     ]

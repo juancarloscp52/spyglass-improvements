@@ -16,6 +16,7 @@ public abstract class GameRendererMixin {
     @Inject(method = "updateFovMultiplier", at = @At("RETURN"))
     private void applyZoom(CallbackInfo ci){
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        // Change fov depending on the spyglass zoom.
         if(player != null && player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()){
             setFovMultiplier(SpyglassImprovementsClient.MULTIPLIER);
         }

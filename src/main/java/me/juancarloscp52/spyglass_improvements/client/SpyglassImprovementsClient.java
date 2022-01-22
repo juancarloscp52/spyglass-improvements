@@ -25,47 +25,59 @@ import java.io.IOException;
 @Environment(EnvType.CLIENT)
 public class SpyglassImprovementsClient implements ClientModInitializer {
 
-    public static int slot = -1;
     public static final Logger LOGGER = LogManager.getLogger();
-    public static float MULTIPLIER = .1f;
+
+    // Use spyglass keybinding, By defefault, is binded to Z.
     public static KeyBinding useSpyglass = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.spyglass-improvements.use",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_Z,
             "category.spyglass-improvements"));
+
     public Settings settings;
     private static SpyglassImprovementsClient INSTANCE;
     public static SpyglassImprovementsClient getInstance() {
         return INSTANCE;
     }
 
+    // Tracks the slot were the spyglass is located
+    public static int slot = -1;
+    // Zoom multiplier
+    public static float MULTIPLIER = .1f;
+
+
     @Override
     public void onInitializeClient() {
         INSTANCE = this;
-        loadSettings();
-        LOGGER.info("Initialized spyglass-improvements");
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(client.player !=null)
-            if (useSpyglass.isPressed() && ((MinecraftClientInvoker)client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
-                if(!client.player.getOffHandStack().getItem().equals(Items.SPYGLASS)){
-                    slot = client.player.getInventory().getSlotWithStack(new ItemStack(Items.SPYGLASS));
-                    System.out.println("Found " + slot);
-                    if(slot >= 9){
-                        client.interactionManager.clickSlot(0, slot,40, SlotActionType.SWAP,client.player);
-                    }else if (slot >=0){
-                        int oldSlot=client.player.getInventory().selectedSlot;
-                        client.player.getInventory().selectedSlot = slot;
-                        slot = oldSlot;
-                        client.interactionManager.interactItem(client.player, client.world, Hand.MAIN_HAND);
-                        return;
-                    }
-                }else{
-                    client.interactionManager.interactItem(client.player, client.world, Hand.OFF_HAND);
-                    System.out.println("Interacting");
-                }
 
+        loadSettings();
+
+        // Register event that checks if the keybinding is pressed and opens the spyglass.
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if(client.player !=null) {
+                if (useSpyglass.isPressed() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
+
+                    if (!client.player.getOffHandStack().getItem().equals(Items.SPYGLASS)) {
+                        slot = client.player.getInventory().getSlotWithStack(new ItemStack(Items.SPYGLASS));
+                        //If the spyglass is in the inventory, move it to the off hand
+                        if (slot >= 9) {
+                            client.interactionManager.clickSlot(0, slot, 40, SlotActionType.SWAP, client.player);
+                        } else if (slot >= 0) {
+                            // If the item is in the hotbar, select the item and interact with it.
+                            int oldSlot = client.player.getInventory().selectedSlot;
+                            client.player.getInventory().selectedSlot = slot;
+                            slot = oldSlot;
+                            client.interactionManager.interactItem(client.player, client.world, Hand.MAIN_HAND);
+                            return;
+                        }
+                    } else {
+                        client.interactionManager.interactItem(client.player, client.world, Hand.OFF_HAND);
+                    }
+
+                }
             }
         });
+        LOGGER.info("Initialized spyglass-improvements");
     }
 
     public void loadSettings() {

@@ -23,7 +23,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Texts;
 import net.minecraft.text.TranslatableText;
 
 
@@ -42,9 +41,9 @@ public class SpyglassConfigurationScreen extends Screen {
     }
 
     protected void init() {
-
         zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableText("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
         this.addDrawableChild(zoomMultiplierWidget);
+
         ButtonWidget spyGlassOverlay = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;
             if(settings.overlay>3)
@@ -52,16 +51,19 @@ public class SpyglassConfigurationScreen extends Screen {
             button.setMessage(new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
         });
         this.addDrawableChild(spyGlassOverlay);
+
         ButtonWidget hideButton = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 96 - 6, 300, 20, new TranslatableText("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? ScreenTexts.YES:ScreenTexts.NO), button -> {
             settings.hideSettingsButton=!settings.hideSettingsButton;
             button.setMessage(new TranslatableText("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? ScreenTexts.YES:ScreenTexts.NO));
         },(buttonWidget, matrixStack, i, j) -> this.renderOrderedTooltip(matrixStack, textRenderer.wrapLines(new TranslatableText("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
         this.addDrawableChild(hideButton);
+
         this.reset = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableText("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
             onDone();
         });
         this.addDrawableChild(reset);
+
         this.done = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 168, 200, 20, ScreenTexts.DONE, button -> onDone());
         this.addDrawableChild(done);
     }
