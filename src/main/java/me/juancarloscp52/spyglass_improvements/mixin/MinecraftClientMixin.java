@@ -1,6 +1,6 @@
-package me.juancarloscp52.enhancedspyglass.mixin;
+package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.enhancedspyglass.client.EnhancedSpyglassClient;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.KeyBinding;
@@ -16,19 +16,19 @@ public class MinecraftClientMixin {
 
     @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z", ordinal = 2))
     public boolean handleInput(KeyBinding instance){
-        return instance.isPressed() || EnhancedSpyglassClient.useSpyglass.isPressed();
+        return instance.isPressed() || SpyglassImprovementsClient.useSpyglass.isPressed();
     }
     @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;stopUsingItem(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     public void stopUsing(ClientPlayerInteractionManager instance, PlayerEntity player){
         instance.stopUsingItem(player);
         MinecraftClient client = MinecraftClient.getInstance();
-        if(EnhancedSpyglassClient.useSpyglass.wasPressed()){
-            ((KeyBindingInvoker)EnhancedSpyglassClient.useSpyglass).invokeReset();
-            int slot = EnhancedSpyglassClient.slot;
+        if(SpyglassImprovementsClient.useSpyglass.wasPressed()){
+            ((KeyBindingInvoker) SpyglassImprovementsClient.useSpyglass).invokeReset();
+            int slot = SpyglassImprovementsClient.slot;
             if(player.getOffHandStack().getItem().equals(Items.SPYGLASS)){
                 if(slot > 8) {
                     client.interactionManager.clickSlot(0, slot, 40, SlotActionType.SWAP, client.player);
-                    EnhancedSpyglassClient.slot = -1;
+                    SpyglassImprovementsClient.slot = -1;
                 }
             }else if(slot >= 0 && slot <=8){
                 player.getInventory().selectedSlot=slot;

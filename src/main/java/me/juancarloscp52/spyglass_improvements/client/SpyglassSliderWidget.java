@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package me.juancarloscp52.enhancedspyglass.client;
+package me.juancarloscp52.spyglass_improvements.client;
 
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;

@@ -1,4 +1,4 @@
-package me.juancarloscp52.enhancedspyglass.mixin;
+package me.juancarloscp52.spyglass_improvements.mixin;
 
 import net.minecraft.client.option.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;

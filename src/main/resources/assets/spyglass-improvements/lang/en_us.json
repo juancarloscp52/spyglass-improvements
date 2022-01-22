@@ -1,0 +1,12 @@
+{
+  "category.spyglass-improvements": "Spyglass Improvements",
+  "key.spyglass-improvements.use": "Use Spyglass",
+  "options.spyglass-improvements.zoomQuantity": "Zoom Increments: %s steps",
+  "options.spyglass-improvements.spyglassOverlay": "Spyglass Overlay: %s",
+  "options.spyglass-improvements.spyglassOverlay.0": "Default",
+  "options.spyglass-improvements.spyglassOverlay.1": "Clear",
+  "options.spyglass-improvements.spyglassOverlay.2": "None",
+  "options.spyglass-improvements.title": "Spyglass Improvements Settings",
+  "options.spyglass-improvements.reset": "Reset Configuration"
+
+}

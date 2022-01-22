@@ -1,6 +1,6 @@
-package me.juancarloscp52.enhancedspyglass.mixin;
+package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.enhancedspyglass.client.EnhancedSpyglassClient;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
@@ -17,7 +17,7 @@ public abstract class GameRendererMixin {
     private void applyZoom(CallbackInfo ci){
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if(player != null && player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()){
-            setFovMultiplier(EnhancedSpyglassClient.MULTIPLIER);
+            setFovMultiplier(SpyglassImprovementsClient.MULTIPLIER);
         }
     }
 

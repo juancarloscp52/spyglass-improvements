@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package me.juancarloscp52.enhancedspyglass.client;
+package me.juancarloscp52.spyglass_improvements.client;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
@@ -24,11 +24,10 @@ import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 
 
 public class SpyglassConfigurationScreen extends Screen {
-    Settings settings = EnhancedSpyglassClient.getInstance().settings;
+    Settings settings = SpyglassImprovementsClient.getInstance().settings;
 
     SliderWidget zoomMultiplierWidget;
     ButtonWidget done;
@@ -37,24 +36,24 @@ public class SpyglassConfigurationScreen extends Screen {
     Screen parent;
 
     public SpyglassConfigurationScreen(Screen parent) {
-        super(new TranslatableText("options.enhanced-spyglass.title"));
+        super(new TranslatableText("options.spyglass-improvements.title"));
         this.parent = parent;
     }
 
     protected void init() {
 
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.enhanced-spyglass.zoomQuantity",settings.multiplierDelta,(slider, translationKey, value) -> new TranslatableText("options.enhanced-spyglass.zoomQuantity", String.format("%.2f",value)), value -> settings.multiplierDelta = (float)value);
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableText("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
         this.addDrawableChild(zoomMultiplierWidget);
-        ButtonWidget spyGlassOverlay = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableText("options.enhanced-spyglass.spyglassOverlay", I18n.translate("options.enhanced-spyglass.spyglassOverlay."+settings.overlay)), button -> {
+        ButtonWidget spyGlassOverlay = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;
             if(settings.overlay>2)
                 settings.overlay=0;
-            button.setMessage(new TranslatableText("options.enhanced-spyglass.spyglassOverlay", I18n.translate("options.enhanced-spyglass.spyglassOverlay."+settings.overlay)));
+            button.setMessage(new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
         });
         this.addDrawableChild(spyGlassOverlay);
 
-        this.reset = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableText("options.enhanced-spyglass.reset"), button -> {
-            EnhancedSpyglassClient.getInstance().settings=new Settings();
+        this.reset = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableText("options.spyglass-improvements.reset"), button -> {
+            SpyglassImprovementsClient.getInstance().settings=new Settings();
             onDone();
         });
         this.addDrawableChild(reset);
@@ -69,7 +68,7 @@ public class SpyglassConfigurationScreen extends Screen {
     }
 
     private void onDone() {
-        EnhancedSpyglassClient.getInstance().saveSettings();
+        SpyglassImprovementsClient.getInstance().saveSettings();
         onClose();
     }
 

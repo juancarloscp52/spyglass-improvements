@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package me.juancarloscp52.enhancedspyglass.mixin;
+package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.enhancedspyglass.client.SpyglassConfigurationScreen;
-import net.minecraft.client.MinecraftClient;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -38,7 +37,7 @@ public class OptionsScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void insertEntropySettingsButton(CallbackInfo ci) {
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, new TranslatableText("options.enhanced-spyglass.title"), button -> {
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, new TranslatableText("options.spyglass-improvements.title"), button -> {
                 this.client.setScreen(new SpyglassConfigurationScreen(this));
         }));
     }

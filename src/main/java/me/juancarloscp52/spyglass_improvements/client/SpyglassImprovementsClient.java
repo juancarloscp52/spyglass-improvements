@@ -1,7 +1,7 @@
-package me.juancarloscp52.enhancedspyglass.client;
+package me.juancarloscp52.spyglass_improvements.client;
 
 import com.google.gson.Gson;
-import me.juancarloscp52.enhancedspyglass.mixin.MinecraftClientInvoker;
+import me.juancarloscp52.spyglass_improvements.mixin.MinecraftClientInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,19 +23,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @Environment(EnvType.CLIENT)
-public class EnhancedSpyglassClient implements ClientModInitializer {
+public class SpyglassImprovementsClient implements ClientModInitializer {
 
     public static int slot = -1;
     public static final Logger LOGGER = LogManager.getLogger();
     public static float MULTIPLIER = .1f;
     public static KeyBinding useSpyglass = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.enhanced-spyglass.use",
+            "key.spyglass-improvements.use",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_Z,
-            "category.enhanced-spyglass"));
+            "category.spyglass-improvements"));
     public Settings settings;
-    private static EnhancedSpyglassClient INSTANCE;
-    public static EnhancedSpyglassClient getInstance() {
+    private static SpyglassImprovementsClient INSTANCE;
+    public static SpyglassImprovementsClient getInstance() {
         return INSTANCE;
     }
 
@@ -43,7 +43,7 @@ public class EnhancedSpyglassClient implements ClientModInitializer {
     public void onInitializeClient() {
         INSTANCE = this;
         loadSettings();
-        LOGGER.info("Initialized enhanced-spyglass");
+        LOGGER.info("Initialized spyglass-improvements");
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(client.player !=null)
             if (useSpyglass.isPressed() && ((MinecraftClientInvoker)client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
