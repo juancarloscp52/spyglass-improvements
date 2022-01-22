@@ -15,15 +15,16 @@ public class InGameHudMixin {
 
     @Redirect(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/util/Identifier;)V"))
     public void setTexture(int i, Identifier identifier){
-        if(SpyglassImprovementsClient.getInstance().settings.overlay == 1){ //Clear overlay
-            RenderSystem.setShaderTexture(i, new Identifier("spyglass-improvements", "textures/spyglass_scope_clear.png"));
-        }else{
-            RenderSystem.setShaderTexture(i, identifier);
+        switch (SpyglassImprovementsClient.getInstance().settings.overlay) {
+            case 1 -> RenderSystem.setShaderTexture(i, new Identifier("spyglass-improvements", "textures/spyglass_scope_clear.png"));
+            case 2 -> RenderSystem.setShaderTexture(i, new Identifier("spyglass-improvements", "textures/spyglass_scope_circle.png"));
+            default -> RenderSystem.setShaderTexture(i, identifier);
         }
+
     }
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
     public void noRender(float scale, CallbackInfo ci){ // No overlay.
-        if(SpyglassImprovementsClient.getInstance().settings.overlay == 2)
+        if(SpyglassImprovementsClient.getInstance().settings.overlay == 3)
             ci.cancel();
     }
 
