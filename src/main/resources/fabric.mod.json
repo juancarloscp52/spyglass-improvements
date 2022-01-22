@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "enhanced-spyglass",
+  "version": "${version}",
+  "name": "Enhanced Spyglass",
+  "description": "Enhance Minecraft's Spyglass with adjustable zoom",
+  "authors": [
+    "juancarloscp52 (Im_jc)"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/entropy",
+    "sources": "https://github.com/juancarloscp52/enhanced-spyglass",
+    "issues": "https://github.com/juancarloscp52/enhanced-spyglass"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/enhanced-spyglass/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.juancarloscp52.enhancedspyglass.client.EnhancedSpyglassClient"
+    ],
+    "main": [
+      "me.juancarloscp52.enhancedspyglass.EnhancedSpyglass"
+    ]
+  },
+  "mixins": [
+    "enhanced-spyglass.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "minecraft": "1.18.1",
+    "fabric": "*"
+  }
+}
