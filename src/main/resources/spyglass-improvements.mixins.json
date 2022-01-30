@@ -7,7 +7,7 @@
     "PlayerEntityMixin"
   ],
   "client": [
-    "GameRendererMixin",
+    "AbstractClientPlayerEntityMixin",
     "InGameHudMixin",
     "KeyBindingInvoker",
     "MinecraftClientInvoker",
