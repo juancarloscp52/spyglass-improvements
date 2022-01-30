@@ -32,8 +32,8 @@ public class MinecraftClientMixin {
                     client.interactionManager.clickSlot(0, slot, 40, SlotActionType.SWAP, client.player);
                     SpyglassImprovementsClient.slot = -1;
                 }
-            }else if(slot >= 0 && slot <=8){
-                player.getInventory().selectedSlot=slot;
+            }else if(slot >= 0 && slot <=8) {
+                player.getInventory().selectedSlot = slot;
             }
         }
     }

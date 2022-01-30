@@ -4,14 +4,15 @@
   "package": "me.juancarloscp52.spyglass_improvements.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "client": [
     "GameRendererMixin",
-    "MouseMixin",
     "InGameHudMixin",
     "KeyBindingInvoker",
     "MinecraftClientInvoker",
     "MinecraftClientMixin",
+    "MouseMixin",
     "OptionsScreenMixin"
   ],
   "injectors": {
