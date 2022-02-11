@@ -14,7 +14,7 @@ Spyglass Improvements is a mod that add various functionality and improvements t
 ![None Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/none.png)
 
 ## Installation:
-This mod requires [Fabric](https://fabricmc.net/use/) and [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api). You can download Spyglass Improvements from the _[releases](https://github.com/juancarloscp52/spyglass-improvements/releases)_ tab in GitHub or through the CurseForge page.
+This mod requires [Fabric](https://fabricmc.net/use/) and [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api). You can download Spyglass Improvements from the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/spyglass-improvements), make sure to download the fabric version.
 Drop the mod and Fabric API JARs inside the mods folder.
 
 ## Building from source:
