@@ -24,7 +24,6 @@ public class SpyglassTogglePacket {
 
         void handle(Supplier<NetworkEvent.Context> context) {
             context.get().enqueueWork(() -> {
-                SpyglassImprovements.LOGGER.info("Package Received "+this.toggle);
                 SpyglassImprovements.FORCE_SPYGLASS = this.toggle;
                 context.get().setPacketHandled(true);
             });
