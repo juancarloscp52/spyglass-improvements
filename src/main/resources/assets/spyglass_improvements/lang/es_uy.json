@@ -1,0 +1,15 @@
+{
+  "category.spyglass-improvements": "Spyglass Improvements",
+  "key.spyglass-improvements.use": "Usar catalejo",
+  "options.spyglass-improvements.zoomQuantity": "Incremento de zoom: %s pasos",
+  "options.spyglass-improvements.hideSettingsButton": "Ocultar botón de ajustes: %s",
+  "options.spyglass-improvements.hideSettingsButton.tooltip": "Oculta el botón de ajustes de la pantalla de opciones de Minecraft. Se puede acceder a este menú usando ModMenu.",
+  "options.spyglass-improvements.spyglassOverlay": "Pantalla de catalejo: %s",
+  "options.spyglass-improvements.spyglassOverlay.Default": "Por defecto",
+  "options.spyglass-improvements.spyglassOverlay.Clear": "Limpia",
+  "options.spyglass-improvements.spyglassOverlay.Circle": "Círculo",
+  "options.spyglass-improvements.spyglassOverlay.None": "Ninguna",
+  "options.spyglass-improvements.title": "Ajustes de Spyglass Improvements",
+  "options.spyglass-improvements.reset": "Resetear configuración."
+
+}

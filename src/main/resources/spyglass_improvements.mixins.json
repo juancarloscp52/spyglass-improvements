@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.juancarloscp52.spyglass_improvements.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "spyglass_improvements.refmap.json",
+  "mixins": [
+    "PlayerMixin"
+  ],
+  "client": [
+    "AbstractClientPlayerMixin",
+    "MinecraftMixin",
+    "MouseHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
