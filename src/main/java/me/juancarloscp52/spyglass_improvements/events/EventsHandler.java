@@ -1,9 +1,7 @@
 package me.juancarloscp52.spyglass_improvements.events;
 
-import me.juancarloscp52.spyglass_improvements.SpyglassImprovements;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import me.juancarloscp52.spyglass_improvements.config.SpyglassImprovementsConfig;
-import me.juancarloscp52.spyglass_improvements.network.SpyglassImprovementsPacketHandler;
-import me.juancarloscp52.spyglass_improvements.network.SpyglassTogglePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,7 +21,7 @@ public class EventsHandler {
 
     @SubscribeEvent
     public void onFovModifier(ScopeFOVModifierEvent event){
-        event.setNewFov((float) SpyglassImprovements.MULTIPLIER);
+        event.setNewFov((float) SpyglassImprovementsClient.MULTIPLIER);
     }
 
     @SubscribeEvent
@@ -31,8 +29,8 @@ public class EventsHandler {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         if(player != null && player.isScoping() && client.options.getCameraType().isFirstPerson()){
-            SpyglassImprovements.MULTIPLIER = Mth.clamp(SpyglassImprovements.MULTIPLIER-(event.getScrollDelta() * SpyglassImprovementsConfig.multiplierDelta.get()), .1,.8);
-            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, (float)(1.0f+(1*(1- SpyglassImprovements.MULTIPLIER)*(1- SpyglassImprovements.MULTIPLIER))));
+            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(event.getScrollDelta() * SpyglassImprovementsConfig.multiplierDelta.get()), .1,.8);
+            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, (float)(1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER))));
             event.setCanceled(true);
         }
     }
@@ -51,8 +49,8 @@ public class EventsHandler {
     public void onStopUsingItem (LivingEntityUseItemEvent.Stop event){
         Minecraft client = Minecraft.getInstance();
         // When stop using, reset spyglass position if it was changed.
-        if(event.getEntityLiving().level.isClientSide && SpyglassImprovements.useSpyglass.consumeClick()){
-            SpyglassImprovements.useSpyglass.release();
+        if(event.getEntityLiving().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
+            SpyglassImprovementsClient.useSpyglass.release();
             int slot = this.slot;
             if(client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
                 if(slot > 8) {
@@ -65,12 +63,12 @@ public class EventsHandler {
         }
     }
 
-    private boolean force_spyglass = false;
+    public static boolean force_spyglass = false;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
         Minecraft client = Minecraft.getInstance();
         if(null != client.player) {
-            if (SpyglassImprovements.useSpyglass.isDown() && client.rightClickDelay == 0 && !client.player.isUsingItem()) {
+            if (SpyglassImprovementsClient.useSpyglass.isDown() && client.rightClickDelay == 0 && !client.player.isUsingItem()) {
                 if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
                     slot = client.player.getInventory().findSlotMatchingItem(new ItemStack(Items.SPYGLASS));
                     //If the spyglass is in the inventory, move it to the off hand
@@ -88,16 +86,14 @@ public class EventsHandler {
                     // On creative mode, we do not need to have a spyglass to use it
                     if (client.player.isCreative() && !force_spyglass) {
                         force_spyglass=true;
-                        SpyglassImprovementsPacketHandler.INSTANCE.sendToServer(new SpyglassTogglePacket(true));
                     }
                 } else {
                     client.gameMode.useItem(client.player, client.level, InteractionHand.OFF_HAND);
                 }
             }
             // Release force spyglass when not pressing the keybind
-            if(force_spyglass && !SpyglassImprovements.useSpyglass.isDown()){
+            if(force_spyglass && !SpyglassImprovementsClient.useSpyglass.isDown()){
                 force_spyglass=false;
-                SpyglassImprovementsPacketHandler.INSTANCE.sendToServer(new SpyglassTogglePacket(false));
             }
         }
     }

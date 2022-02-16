@@ -1,6 +1,6 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.spyglass_improvements.SpyglassImprovements;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +37,7 @@ public class MouseHandlerMixin {
         Minecraft client = Minecraft.getInstance();
         double sensitivity = client.options.sensitivity * .6 + .2;
         double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
-        double spyglassSensitivity = baseSensitivity * SpyglassImprovements.MULTIPLIER;
+        double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
         return accumulatedDY *spyglassSensitivity;
     }
 
