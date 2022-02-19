@@ -15,7 +15,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 
@@ -36,17 +35,13 @@ public class SpyglassImprovementsClient {
     public static void init(final FMLClientSetupEvent event) {
         Gui.SPYGLASS_SCOPE_LOCATION = SpyglassImprovementsConfig.overlay.get().getResourceLocation();
         ClientRegistry.registerKeyBinding(useSpyglass);
-        SpyglassImprovements.LOGGER.info("Spyglass Improvements client Initialized");
-
         MinecraftForge.EVENT_BUS.register(new EventsHandler());
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SpyglassImprovementsConfig.SPEC);
-
         ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class,
                 () -> new ConfigGuiHandler.ConfigGuiFactory(
                         (minecraft, screen) -> new SpyglassConfigurationScreen(screen)
                 )
         );
-
+        SpyglassImprovements.LOGGER.info("Spyglass Improvements client Initialized");
     }
 
 }

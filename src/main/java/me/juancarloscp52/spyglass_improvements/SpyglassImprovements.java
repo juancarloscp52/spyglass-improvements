@@ -1,9 +1,12 @@
 package me.juancarloscp52.spyglass_improvements;
 
 
+import me.juancarloscp52.spyglass_improvements.config.SpyglassImprovementsConfig;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,11 +16,7 @@ public class SpyglassImprovements {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public SpyglassImprovements() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() ->()-> ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SpyglassImprovementsConfig.SPEC));
     }
 
 }
