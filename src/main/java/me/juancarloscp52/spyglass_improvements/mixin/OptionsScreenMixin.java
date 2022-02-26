@@ -19,11 +19,11 @@ package me.juancarloscp52.spyglass_improvements.mixin;
 
 import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.OptionsScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,16 +32,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(OptionsScreen.class)
 public class OptionsScreenMixin extends Screen {
 
-    protected OptionsScreenMixin(Text title) {
+    protected OptionsScreenMixin(Component title) {
         super(title);
     }
 
     @Inject(method = "init", at = @At("TAIL"))
     private void insertEntropySettingsButton(CallbackInfo ci) {
         if(!SpyglassImprovementsClient.getInstance().settings.hideSettingsButton)
-            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, new TranslatableText("options.spyglass-improvements.title"), button -> {
-                    this.client.setScreen(new SpyglassConfigurationScreen(this));
-            }));
+            this.addRenderableWidget(new Button(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, new TranslatableComponent("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))));
     }
 
 }

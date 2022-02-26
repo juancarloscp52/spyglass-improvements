@@ -17,60 +17,60 @@
 
 package me.juancarloscp52.spyglass_improvements.client;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ScreenTexts;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.TranslatableText;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.TranslatableComponent;
 
 
 public class SpyglassConfigurationScreen extends Screen {
     Settings settings = SpyglassImprovementsClient.getInstance().settings;
 
-    SliderWidget zoomMultiplierWidget;
-    ButtonWidget done;
-    ButtonWidget reset;
+    AbstractSliderButton zoomMultiplierWidget;
+    Button done;
+    Button reset;
 
     Screen parent;
 
     public SpyglassConfigurationScreen(Screen parent) {
-        super(new TranslatableText("options.spyglass-improvements.title"));
+        super(new TranslatableComponent("options.spyglass-improvements.title"));
         this.parent = parent;
     }
 
     protected void init() {
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableText("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
-        this.addDrawableChild(zoomMultiplierWidget);
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
+        this.addRenderableWidget(zoomMultiplierWidget);
 
-        ButtonWidget spyGlassOverlay = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
+        Button spyGlassOverlay = new Button(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;
             if(settings.overlay>3)
                 settings.overlay=0;
-            button.setMessage(new TranslatableText("options.spyglass-improvements.spyglassOverlay", I18n.translate("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
         });
-        this.addDrawableChild(spyGlassOverlay);
+        this.addRenderableWidget(spyGlassOverlay);
 
-        ButtonWidget hideButton = new ButtonWidget(this.width / 2 - 150, this.height / 6 + 96 - 6, 300, 20, new TranslatableText("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? ScreenTexts.YES:ScreenTexts.NO), button -> {
+        Button hideButton = new Button(this.width / 2 - 150, this.height / 6 + 96 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.hideSettingsButton=!settings.hideSettingsButton;
-            button.setMessage(new TranslatableText("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? ScreenTexts.YES:ScreenTexts.NO));
-        },(buttonWidget, matrixStack, i, j) -> this.renderOrderedTooltip(matrixStack, textRenderer.wrapLines(new TranslatableText("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
-        this.addDrawableChild(hideButton);
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+        },(buttonWidget, matrixStack, i, j) -> this.renderTooltip(matrixStack, font.split(new TranslatableComponent("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
+        this.addRenderableWidget(hideButton);
 
-        this.reset = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableText("options.spyglass-improvements.reset"), button -> {
+        this.reset = new Button(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableComponent("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
             onDone();
         });
-        this.addDrawableChild(reset);
+        this.addRenderableWidget(reset);
 
-        this.done = new ButtonWidget(this.width / 2 - 100, this.height / 6 + 168, 200, 20, ScreenTexts.DONE, button -> onDone());
-        this.addDrawableChild(done);
+        this.done = new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, button -> onDone());
+        this.addRenderableWidget(done);
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
-        drawTextWithShadow(matrices, this.textRenderer, title, this.width / 2 - textRenderer.getWidth(title)/2, 20, 16777215);
+        drawString(matrices, this.font, title, this.width / 2 - font.width(title)/2, 20, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 
@@ -81,6 +81,6 @@ public class SpyglassConfigurationScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.client.setScreen(this.parent);
+        this.minecraft.setScreen(this.parent);
     }
 }

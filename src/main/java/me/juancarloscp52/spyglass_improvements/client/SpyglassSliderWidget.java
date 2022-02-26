@@ -17,18 +17,18 @@
 
 package me.juancarloscp52.spyglass_improvements.client;
 
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
-public class SpyglassSliderWidget extends SliderWidget {
+public class SpyglassSliderWidget extends AbstractSliderButton {
 
     String translationKey;
     MessageSupplier messageSupplier;
     ValueUpdater valueUpdater;
 
     public SpyglassSliderWidget(int x, int y, int width, int height, String translationKey, double value, MessageSupplier messageSupplier, ValueUpdater valueUpdater) {
-        super(x, y, width, height, new TranslatableText(translationKey), value);
+        super(x, y, width, height, new TranslatableComponent(translationKey), value);
         this.translationKey=translationKey;
         this.messageSupplier=messageSupplier;
         this.valueUpdater=valueUpdater;
@@ -39,7 +39,7 @@ public class SpyglassSliderWidget extends SliderWidget {
     }
 
     @Override
-    public Text getMessage() {
+    public Component getMessage() {
         return this.messageSupplier.updateMessage(this,this.translationKey,this.value);
     }
 
@@ -49,7 +49,7 @@ public class SpyglassSliderWidget extends SliderWidget {
     }
 
     public interface MessageSupplier {
-        Text updateMessage(SpyglassSliderWidget slider,String translationKey, double value);
+        Component updateMessage(SpyglassSliderWidget slider,String translationKey, double value);
     }
 
     public interface ValueUpdater {

@@ -1,39 +1,39 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class MinecraftClientMixin {
 
-    @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z", ordinal = 2))
-    public boolean handleInput(KeyBinding instance){
-        return instance.isPressed() || SpyglassImprovementsClient.useSpyglass.isPressed();
+    @Redirect(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;isDown()Z", ordinal = 2))
+    public boolean handleInput(KeyMapping instance){
+        return instance.isDown() || SpyglassImprovementsClient.useSpyglass.isDown();
     }
-    @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;stopUsingItem(Lnet/minecraft/entity/player/PlayerEntity;)V"))
-    public void stopUsing(ClientPlayerInteractionManager instance, PlayerEntity player){
-        instance.stopUsingItem(player);
-        MinecraftClient client = MinecraftClient.getInstance();
+    @Redirect(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;releaseUsingItem(Lnet/minecraft/world/entity/player/Player;)V"))
+    public void stopUsing(MultiPlayerGameMode instance, Player player){
+        instance.releaseUsingItem(player);
+        Minecraft client = Minecraft.getInstance();
 
         // When stop using, reset spyglass position if it was changed.
-        if(SpyglassImprovementsClient.useSpyglass.wasPressed()){
+        if(SpyglassImprovementsClient.useSpyglass.consumeClick()){
             ((KeyBindingInvoker) SpyglassImprovementsClient.useSpyglass).invokeReset();
             int slot = SpyglassImprovementsClient.slot;
-            if(player.getOffHandStack().getItem().equals(Items.SPYGLASS)){
+            if(player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
                 if(slot > 8) {
-                    client.interactionManager.clickSlot(0, slot, 40, SlotActionType.SWAP, client.player);
+                    client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
                     SpyglassImprovementsClient.slot = -1;
                 }
             }else if(slot >= 0 && slot <=8) {
-                player.getInventory().selectedSlot = slot;
+                player.getInventory().selected = slot;
             }
         }
     }

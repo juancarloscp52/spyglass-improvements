@@ -2,27 +2,27 @@ package me.juancarloscp52.spyglass_improvements.mixin;
 
 import com.mojang.authlib.GameProfile;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractClientPlayerEntity.class)
-public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
+@Mixin(AbstractClientPlayer.class)
+public abstract class AbstractClientPlayerEntityMixin extends Player {
 
 
-    public AbstractClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
+    public AbstractClientPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
 
-    @Inject(method = "getFovMultiplier", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getFieldOfViewModifier", at = @At("RETURN"), cancellable = true)
     public void fovMultiplier(CallbackInfoReturnable<Float> cir){
-        if(MinecraftClient.getInstance().options.getPerspective().isFirstPerson() && isUsingSpyglass())
+        if(Minecraft.getInstance().options.getCameraType().isFirstPerson() && isScoping())
             cir.setReturnValue(SpyglassImprovementsClient.MULTIPLIER);
     }
 

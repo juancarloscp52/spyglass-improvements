@@ -1,6 +1,7 @@
 package me.juancarloscp52.spyglass_improvements.client;
 
 import com.google.gson.Gson;
+import com.mojang.blaze3d.platform.InputConstants;
 import me.juancarloscp52.spyglass_improvements.mixin.MinecraftClientInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -9,14 +10,13 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -33,9 +33,9 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
 
     // Use spyglass keybinding, By defefault, is binded to Z.
-    public static KeyBinding useSpyglass = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    public static KeyMapping useSpyglass = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             "key.spyglass-improvements.use",
-            InputUtil.Type.KEYSYM,
+            InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_Z,
             "category.spyglass-improvements"));
 
@@ -60,36 +60,36 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
         // Register event that checks if the keybinding is pressed and opens the spyglass.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(client.player !=null) {
-                if (useSpyglass.isPressed() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
-                    if (!client.player.getOffHandStack().getItem().equals(Items.SPYGLASS)) {
-                        slot = client.player.getInventory().getSlotWithStack(new ItemStack(Items.SPYGLASS));
+                if (useSpyglass.isDown() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
+                    if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
+                        slot = client.player.getInventory().findSlotMatchingItem(new ItemStack(Items.SPYGLASS));
                         //If the spyglass is in the inventory, move it to the off hand
                         if (slot >= 9) {
-                            client.interactionManager.clickSlot(0, slot, 40, SlotActionType.SWAP, client.player);
+                            client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
                             return;
                         } else if (slot >= 0) {
                             // If the item is in the hotbar, select the item and interact with it.
-                            int oldSlot = client.player.getInventory().selectedSlot;
-                            client.player.getInventory().selectedSlot = slot;
+                            int oldSlot = client.player.getInventory().selected;
+                            client.player.getInventory().selected = slot;
                             slot = oldSlot;
-                            client.interactionManager.interactItem(client.player, client.world, Hand.MAIN_HAND);
+                            client.gameMode.useItem(client.player, client.level, InteractionHand.MAIN_HAND);
                             return;
                         }
                         if(client.player.isCreative() && !force_spyglass){
-                            PacketByteBuf buf = PacketByteBufs.create();
+                            FriendlyByteBuf buf = PacketByteBufs.create();
                             buf.writeBoolean(true);
                             force_spyglass=true;
-                            ClientPlayNetworking.send(new Identifier("spyglass-improvements", "toggle"), buf);
+                            ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                         }
                     } else {
-                        client.interactionManager.interactItem(client.player, client.world, Hand.OFF_HAND);
+                        client.gameMode.useItem(client.player, client.level, InteractionHand.OFF_HAND);
                     }
                 }
-                if(force_spyglass && !useSpyglass.isPressed()){
-                    PacketByteBuf buf = PacketByteBufs.create();
+                if(force_spyglass && !useSpyglass.isDown()){
+                    FriendlyByteBuf buf = PacketByteBufs.create();
                     buf.writeBoolean(false);
                     force_spyglass=false;
-                    ClientPlayNetworking.send(new Identifier("spyglass-improvements", "toggle"), buf);
+                    ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                 }
             }
         });
