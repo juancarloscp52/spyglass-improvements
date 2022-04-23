@@ -5,4 +5,5 @@ public class Settings {
     public float multiplierDelta = .1f;
     public boolean hideSettingsButton = false;
     public boolean showCrossHair = false;
+    public boolean smoothCamera = false;
 }

@@ -5,6 +5,7 @@
   "options.spyglass-improvements.hideSettingsButton": "Hide Settings Button: %s",
   "options.spyglass-improvements.hideSettingsButton.tooltip": "Hide the settings button of Minecraft's options screen. You can still access this screen through Mod Menu",
   "options.spyglass-improvements.showCrosshair": "Show CrossHair: %s",
+  "options.spyglass-improvements.smoothCamera": "Smooth Camera: %s",
   "options.spyglass-improvements.spyglassOverlay": "Spyglass Overlay: %s",
   "options.spyglass-improvements.spyglassOverlay.0": "Default",
   "options.spyglass-improvements.spyglassOverlay.1": "Clear",
