@@ -41,8 +41,14 @@ public class SpyglassConfigurationScreen extends Screen {
     }
 
     protected void init() {
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 24 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
         this.addRenderableWidget(zoomMultiplierWidget);
+
+        Button showCrosshair = new Button(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+            settings.showCrossHair=!settings.showCrossHair;
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+        });
+        this.addRenderableWidget(showCrosshair);
 
         Button spyGlassOverlay = new Button(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;

@@ -1,7 +1,9 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,6 +24,12 @@ public class InGameHudMixin {
         }
 
     }
+    @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
+    public void renderCrosshair(PoseStack poseStack, CallbackInfo ci){
+        if(!SpyglassImprovementsClient.getInstance().settings.showCrossHair && Minecraft.getInstance().player.isScoping())
+            ci.cancel();
+    }
+
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
     public void noRender(float scale, CallbackInfo ci){ // No overlay.
         if(SpyglassImprovementsClient.getInstance().settings.overlay == 3)
