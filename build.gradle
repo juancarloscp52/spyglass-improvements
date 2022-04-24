@@ -15,7 +15,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'me.juancarloscp52'
-version = "${project.mod_version}+mc${project.minecraft_version}+forge"
+//version = "${project.mod_version}+mc${project.minecraft_version}+forge"
+version = "${project.mod_version}+mc1.18.x+forge"
 
 java {
     archivesBaseName = 'spyglass_improvements'
