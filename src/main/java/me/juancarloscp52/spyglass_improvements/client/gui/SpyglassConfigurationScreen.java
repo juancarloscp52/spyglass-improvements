@@ -35,7 +35,8 @@ public class SpyglassConfigurationScreen extends Screen {
 
     SpyglassImprovementsConfig.Overlays currentOverlay;
     double currentMultiplier;
-
+    boolean hideCrossHair;
+    boolean smoothCamera;
     public SpyglassConfigurationScreen(Screen parent) {
         super(new TranslatableComponent("options.spyglass-improvements.title"));
         this.parent = parent;
@@ -44,18 +45,32 @@ public class SpyglassConfigurationScreen extends Screen {
     protected void init() {
         currentOverlay = SpyglassImprovementsConfig.overlay.get();
         currentMultiplier =SpyglassImprovementsConfig.multiplierDelta.get();
+        hideCrossHair = SpyglassImprovementsConfig.showCrosshair.get();
+        smoothCamera = SpyglassImprovementsConfig.smoothCamera.get();
 
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 48 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(currentMultiplier-.1)*1.1,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1+(value*.9))), value -> {
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(currentMultiplier-.1)*1.1,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1+(value*.9))), value -> {
             currentMultiplier=.1+(value*.9);
         });
 
         this.addRenderableWidget(zoomMultiplierWidget);
 
-        ExtendedButton spyGlassOverlay = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 72 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())), button -> {
+        ExtendedButton spyGlassOverlay = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())), button -> {
             currentOverlay=currentOverlay.next();
             button.setMessage(new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())));
         });
         this.addRenderableWidget(spyGlassOverlay);
+
+        ExtendedButton showCrosshair = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+            hideCrossHair=!hideCrossHair;
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+        });
+        this.addRenderableWidget(showCrosshair);
+
+        ExtendedButton smoothCameraButton = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+            smoothCamera=!smoothCamera;
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+        });
+        this.addRenderableWidget(smoothCameraButton);
 
         this.reset = new ExtendedButton(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableComponent("options.spyglass-improvements.reset"), button -> {
             currentOverlay= SpyglassImprovementsConfig.Overlays.Default;
@@ -77,6 +92,9 @@ public class SpyglassConfigurationScreen extends Screen {
     private void onDone() {
         SpyglassImprovementsConfig.overlay.set(currentOverlay);
         SpyglassImprovementsConfig.multiplierDelta.set(currentMultiplier);
+        SpyglassImprovementsConfig.showCrosshair.set(hideCrossHair);
+        SpyglassImprovementsConfig.smoothCamera.set(smoothCamera);
+
         Gui.SPYGLASS_SCOPE_LOCATION = currentOverlay.getResourceLocation();
         onClose();
     }

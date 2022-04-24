@@ -41,6 +41,10 @@ public class EventsHandler {
                 && SpyglassImprovementsConfig.overlay.get()==SpyglassImprovementsConfig.Overlays.None){
             event.setCanceled(true);
         }
+        if(event.getOverlay().equals(ForgeIngameGui.CROSSHAIR_ELEMENT) && !SpyglassImprovementsConfig.showCrosshair.get()
+                && Minecraft.getInstance().player.isScoping()){
+            event.setCanceled(true);
+        }
     }
 
     // Tracks the slot were the spyglass is located
