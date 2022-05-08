@@ -90,6 +90,7 @@ public class EventsHandler {
                     // On creative mode, we do not need to have a spyglass to use it
                     if (client.player.isCreative() && !force_spyglass) {
                         force_spyglass=true;
+                        client.player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
                     }
                 } else {
                     client.gameMode.useItem(client.player, client.level, InteractionHand.OFF_HAND);
@@ -98,6 +99,7 @@ public class EventsHandler {
             // Release force spyglass when not pressing the keybind
             if(force_spyglass && !SpyglassImprovementsClient.useSpyglass.isDown()){
                 force_spyglass=false;
+                client.player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f);
             }
         }
     }
