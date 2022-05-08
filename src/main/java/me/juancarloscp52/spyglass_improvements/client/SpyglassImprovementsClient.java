@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
@@ -79,6 +80,7 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                             FriendlyByteBuf buf = PacketByteBufs.create();
                             buf.writeBoolean(true);
                             force_spyglass=true;
+                            client.player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
                             ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                         }
                     } else {
@@ -89,6 +91,7 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                     FriendlyByteBuf buf = PacketByteBufs.create();
                     buf.writeBoolean(false);
                     force_spyglass=false;
+                    client.player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f);
                     ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                 }
             }
