@@ -73,7 +73,7 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                             int oldSlot = client.player.getInventory().selected;
                             client.player.getInventory().selected = slot;
                             slot = oldSlot;
-                            client.gameMode.useItem(client.player, client.level, InteractionHand.MAIN_HAND);
+                            client.gameMode.useItem(client.player, InteractionHand.MAIN_HAND);
                             return;
                         }
                         if(client.player.isCreative() && !force_spyglass){
@@ -84,7 +84,7 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                             ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                         }
                     } else {
-                        client.gameMode.useItem(client.player, client.level, InteractionHand.OFF_HAND);
+                        client.gameMode.useItem(client.player, InteractionHand.OFF_HAND);
                     }
                 }
                 if(force_spyglass && !useSpyglass.isDown()){

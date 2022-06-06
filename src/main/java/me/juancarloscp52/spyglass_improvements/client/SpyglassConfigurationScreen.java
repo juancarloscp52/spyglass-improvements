@@ -23,7 +23,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 
 public class SpyglassConfigurationScreen extends Screen {
@@ -36,41 +36,41 @@ public class SpyglassConfigurationScreen extends Screen {
     Screen parent;
 
     public SpyglassConfigurationScreen(Screen parent) {
-        super(new TranslatableComponent("options.spyglass-improvements.title"));
+        super(Component.translatable("options.spyglass-improvements.title"));
         this.parent = parent;
     }
 
     protected void init() {
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> Component.translatable("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
         this.addRenderableWidget(zoomMultiplierWidget);
 
-        Button spyGlassOverlay = new Button(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
+        Button spyGlassOverlay = new Button(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;
             if(settings.overlay>3)
                 settings.overlay=0;
-            button.setMessage(new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
+            button.setMessage(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
         });
         this.addRenderableWidget(spyGlassOverlay);
 
-        Button showCrosshair = new Button(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        Button showCrosshair = new Button(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.showCrossHair=!settings.showCrossHair;
-            button.setMessage(new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
         this.addRenderableWidget(showCrosshair);
 
-        Button smoothCamera = new Button(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        Button smoothCamera = new Button(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.smoothCamera=!settings.smoothCamera;
-            button.setMessage(new TranslatableComponent("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
         this.addRenderableWidget(smoothCamera);
 
-        Button hideButton = new Button(this.width / 2 - 150, this.height / 6 + 110 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        Button hideButton = new Button(this.width / 2 - 150, this.height / 6 + 110 - 6, 300, 20, Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.hideSettingsButton=!settings.hideSettingsButton;
-            button.setMessage(new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
-        },(buttonWidget, matrixStack, i, j) -> this.renderTooltip(matrixStack, font.split(new TranslatableComponent("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
+            button.setMessage(Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+        },(buttonWidget, matrixStack, i, j) -> this.renderTooltip(matrixStack, font.split(Component.translatable("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
         this.addRenderableWidget(hideButton);
 
-        this.reset = new Button(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableComponent("options.spyglass-improvements.reset"), button -> {
+        this.reset = new Button(this.width / 2 - 100, this.height / 6 + 144, 200, 20, Component.translatable("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
             onDone();
         });

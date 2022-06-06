@@ -2,7 +2,6 @@ package me.juancarloscp52.spyglass_improvements.mixin;
 
 import com.mojang.blaze3d.Blaze3D;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.player.LocalPlayer;
@@ -33,7 +32,7 @@ public abstract class MouseMixin {
 
     @Inject(method = "onScroll",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;swapPaint(D)V"),cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci){
-        float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity);
+        float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll().get() ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity().get());
         LocalPlayer player = Minecraft.getInstance().player;
         if(player != null && player.isScoping() && Minecraft.getInstance().options.getCameraType().isFirstPerson()){
             SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* SpyglassImprovementsClient.getInstance().settings.multiplierDelta), .1f,.8f);
@@ -51,7 +50,7 @@ public abstract class MouseMixin {
             this.lastMouseEventTime = d;
             double displacementX,displacementY;
 
-            double sensitivity = minecraft.options.sensitivity * .6 + .2;
+            double sensitivity = this.minecraft.options.sensitivity().get() * .6 + .2;
             double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);
@@ -69,7 +68,7 @@ public abstract class MouseMixin {
 
             accumulatedDX = .0;
             accumulatedDY = .0 ;
-            int mouseDirection = minecraft.options.invertYMouse? -1:1;
+            int mouseDirection = minecraft.options.invertYMouse().get()? -1:1;
             minecraft.getTutorial().onMouse(displacementX, displacementY);
             if (minecraft.player != null) {
                 minecraft.player.turn(displacementX, displacementY * mouseDirection);
