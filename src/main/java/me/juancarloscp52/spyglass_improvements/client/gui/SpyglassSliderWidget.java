@@ -19,7 +19,6 @@ package me.juancarloscp52.spyglass_improvements.client.gui;
 
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 
 public class SpyglassSliderWidget extends AbstractSliderButton {
@@ -29,7 +28,7 @@ public class SpyglassSliderWidget extends AbstractSliderButton {
     ValueUpdater valueUpdater;
 
     public SpyglassSliderWidget(int x, int y, int width, int height, String translationKey, double value, MessageSupplier messageSupplier, ValueUpdater valueUpdater) {
-        super(x, y, width, height, new TranslatableComponent(translationKey), value);
+        super(x, y, width, height, Component.translatable(translationKey), value);
         this.translationKey=translationKey;
         this.messageSupplier=messageSupplier;
         this.valueUpdater=valueUpdater;

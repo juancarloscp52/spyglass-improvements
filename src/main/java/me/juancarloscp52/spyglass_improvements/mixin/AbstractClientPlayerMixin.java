@@ -18,7 +18,7 @@ public class AbstractClientPlayerMixin{
         if (null != client.player && client.options.getCameraType().isFirstPerson() && client.player.isScoping()){
             ScopeFOVModifierEvent scopeFOVModifierEvent = new ScopeFOVModifierEvent(cir.getReturnValue());
             MinecraftForge.EVENT_BUS.post(scopeFOVModifierEvent);
-            cir.setReturnValue(scopeFOVModifierEvent.getNewFov());
+            cir.setReturnValue((float)scopeFOVModifierEvent.getNewFov());
         }
     }
 }

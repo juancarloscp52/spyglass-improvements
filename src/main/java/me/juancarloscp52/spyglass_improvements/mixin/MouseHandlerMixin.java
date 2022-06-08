@@ -57,7 +57,7 @@ public class MouseHandlerMixin {
             this.lastMouseEventTime = d;
             double displacementX,displacementY;
 
-            double sensitivity = minecraft.options.sensitivity * .6 + .2;
+            double sensitivity = minecraft.options.sensitivity().get() * .6 + .2;
             double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);
@@ -75,7 +75,7 @@ public class MouseHandlerMixin {
 
             accumulatedDX = .0;
             accumulatedDY = .0 ;
-            int mouseDirection = minecraft.options.invertYMouse? -1:1;
+            int mouseDirection = minecraft.options.invertYMouse().get()? -1:1;
             minecraft.getTutorial().onMouse(displacementX, displacementY);
             if (minecraft.player != null) {
                 minecraft.player.turn(displacementX, displacementY * mouseDirection);
@@ -87,7 +87,7 @@ public class MouseHandlerMixin {
 
     private double getSpyglassSensitivity(double accumulatedDY) {
         Minecraft client = Minecraft.getInstance();
-        double sensitivity = client.options.sensitivity * .6 + .2;
+        double sensitivity = client.options.sensitivity().get() * .6 + .2;
         double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
         double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
         return accumulatedDY *spyglassSensitivity;

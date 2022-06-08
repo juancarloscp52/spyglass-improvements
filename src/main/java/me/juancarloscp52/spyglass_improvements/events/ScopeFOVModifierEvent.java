@@ -5,26 +5,26 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.eventbus.api.Event;
 
 public class ScopeFOVModifierEvent extends Event {
-    private final float fov;
-    private float newFov;
+    private final double fov;
+    private double newFov;
 
-    public ScopeFOVModifierEvent(float fov)
+    public ScopeFOVModifierEvent(double fov)
     {
         this.fov = fov;
-        this.setNewFov(Mth.lerp(Minecraft.getInstance().options.fovEffectScale, 1.0F, fov));
+        this.setNewFov(Mth.lerp(Minecraft.getInstance().options.fovEffectScale().get(), 1.0, fov));
     }
 
-    public float getFov()
+    public double getFov()
     {
         return fov;
     }
 
-    public float getNewFov()
+    public double getNewFov()
     {
         return newFov;
     }
 
-    public void setNewFov(float newFov)
+    public void setNewFov(double newFov)
     {
         this.newFov = newFov;
     }

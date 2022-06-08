@@ -84,7 +84,7 @@ public class EventsHandler {
                         int oldSlot = client.player.getInventory().selected;
                         client.player.getInventory().selected = slot;
                         slot = oldSlot;
-                        client.gameMode.useItem(client.player, client.level, InteractionHand.MAIN_HAND);
+                        client.gameMode.useItem(client.player, InteractionHand.MAIN_HAND);
                         return;
                     }
                     // On creative mode, we do not need to have a spyglass to use it
@@ -93,7 +93,7 @@ public class EventsHandler {
                         client.player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
                     }
                 } else {
-                    client.gameMode.useItem(client.player, client.level, InteractionHand.OFF_HAND);
+                    client.gameMode.useItem(client.player, InteractionHand.OFF_HAND);
                 }
             }
             // Release force spyglass when not pressing the keybind
