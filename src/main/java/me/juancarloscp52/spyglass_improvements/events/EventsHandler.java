@@ -11,8 +11,9 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,12 +21,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class EventsHandler {
 
     @SubscribeEvent
+    public void registerKeymapping(RegisterKeyMappingsEvent event){
+        event.register(SpyglassImprovementsClient.useSpyglass);
+    }
+
+    @SubscribeEvent
     public void onFovModifier(ScopeFOVModifierEvent event){
         event.setNewFov((float) SpyglassImprovementsClient.MULTIPLIER);
     }
 
     @SubscribeEvent
-    public void onMouseScroll(InputEvent.MouseScrollEvent event){
+    public void onMouseScroll(InputEvent.MouseScrollingEvent event){
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         if(player != null && player.isScoping() && client.options.getCameraType().isFirstPerson()){
@@ -36,12 +42,14 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent.PreLayer event){
-        if(event.getOverlay().equals(ForgeIngameGui.SPYGLASS_ELEMENT)
+    public void onRenderGameOverlay(RenderGuiOverlayEvent.Pre event){
+
+        if(event.getOverlay()== VanillaGuiOverlay.SPYGLASS.type()
                 && SpyglassImprovementsConfig.overlay.get()==SpyglassImprovementsConfig.Overlays.None){
             event.setCanceled(true);
         }
-        if(event.getOverlay().equals(ForgeIngameGui.CROSSHAIR_ELEMENT) && !SpyglassImprovementsConfig.showCrosshair.get()
+
+        if(event.getOverlay()==VanillaGuiOverlay.CROSSHAIR.type() && !SpyglassImprovementsConfig.showCrosshair.get()
                 && Minecraft.getInstance().player.isScoping()){
             event.setCanceled(true);
         }
@@ -53,7 +61,7 @@ public class EventsHandler {
     public void onStopUsingItem (LivingEntityUseItemEvent.Stop event){
         Minecraft client = Minecraft.getInstance();
         // When stop using, reset spyglass position if it was changed.
-        if(event.getEntityLiving().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
+        if(event.getEntity().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
             SpyglassImprovementsClient.useSpyglass.release();
             int slot = this.slot;
             if(client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
