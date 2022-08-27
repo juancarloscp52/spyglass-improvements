@@ -8,10 +8,10 @@ Spyglass Improvements is a mod that add various functionality and improvements t
 
 
 ## ScreenShots:
-![Zoom Example](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/zoom.gif)
-![Clear Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/clear.png)
-![Circle Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/circle.png)
-![None Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/none.png)
+![Zoom Example](https://raw.githubusercontent.com/juancarloscp52/spyglass-improvements/fabric-1.19/images/zoom.gif)
+![Clear Layout](https://raw.githubusercontent.com/juancarloscp52/spyglass-improvements/fabric-1.19/images/clear.png)
+![Circle Layout](https://raw.githubusercontent.com/juancarloscp52/spyglass-improvements/fabric-1.19/images/circle.png)
+![None Layout](https://raw.githubusercontent.com/juancarloscp52/spyglass-improvements/fabric-1.19/images/none.png)
 
 ## Installation:
 This mod requires [Fabric](https://fabricmc.net/use/) and [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api). You can download Spyglass Improvements from the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/spyglass-improvements), make sure to download the fabric version.
