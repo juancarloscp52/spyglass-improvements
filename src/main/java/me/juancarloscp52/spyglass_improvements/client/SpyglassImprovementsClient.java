@@ -15,7 +15,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
@@ -62,9 +64,10 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(client.player !=null) {
                 if (useSpyglass.isDown() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
+                    // Search for spyglass in inventory if it is not already in the off-hand.
                     if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
-                        slot = client.player.getInventory().findSlotMatchingItem(new ItemStack(Items.SPYGLASS));
-                        //If the spyglass is in the inventory, move it to the off hand
+                        slot = findSlotByItem(client.player.getInventory(),Items.SPYGLASS);
+                        //If the spyglass is in the inventory, move it to the off-hand
                         if (slot >= 9) {
                             client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
                             return;
@@ -76,6 +79,8 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                             client.gameMode.useItem(client.player, InteractionHand.MAIN_HAND);
                             return;
                         }
+
+                        // If player is in creative mode, show spyglass even if it does not exist in the inventory.
                         if(client.player.isCreative() && !force_spyglass){
                             FriendlyByteBuf buf = PacketByteBufs.create();
                             buf.writeBoolean(true);
@@ -84,9 +89,11 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                             ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
                         }
                     } else {
+                        //If spyglass is already in the off-hand, use the item.
                         client.gameMode.useItem(client.player, InteractionHand.OFF_HAND);
                     }
                 }
+                // Hide spyglass when key is no longer pressed.
                 if(force_spyglass && !useSpyglass.isDown()){
                     FriendlyByteBuf buf = PacketByteBufs.create();
                     buf.writeBoolean(false);
@@ -129,5 +136,21 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
         } catch (IOException e) {
             LOGGER.warn("Could not save Spyglass Improvements settings: " + e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Finds a slot containing an itemstack of the given item type.
+     * @param inventory - Players inventory.
+     * @param item - Item type to search for.
+     * @return Slot ID, -1 if item was not found.
+     */
+    private int findSlotByItem(Inventory inventory, Item item) {
+        for(int i = 0; i < inventory.items.size(); ++i) {
+            if (!inventory.items.get(i).isEmpty() && inventory.items.get(i).is(item)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
