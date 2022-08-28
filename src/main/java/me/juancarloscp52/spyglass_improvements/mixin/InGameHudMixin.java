@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class InGameHudMixin {
 
+    // Set the spyglass overlay depending on the selected one.
     @Redirect(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
     public void setTexture(int i, ResourceLocation identifier){
         switch (SpyglassImprovementsClient.getInstance().settings.overlay) {
@@ -24,12 +25,14 @@ public class InGameHudMixin {
         }
 
     }
+    // toggle renderCrosshair depending on settings
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     public void renderCrosshair(PoseStack poseStack, CallbackInfo ci){
         if(!SpyglassImprovementsClient.getInstance().settings.showCrossHair && Minecraft.getInstance().player.isScoping())
             ci.cancel();
     }
 
+    // Toggle overlay.
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
     public void noRender(float scale, CallbackInfo ci){ // No overlay.
         if(SpyglassImprovementsClient.getInstance().settings.overlay == 3)

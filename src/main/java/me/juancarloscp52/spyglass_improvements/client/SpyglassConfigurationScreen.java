@@ -28,11 +28,9 @@ import net.minecraft.network.chat.Component;
 
 public class SpyglassConfigurationScreen extends Screen {
     Settings settings = SpyglassImprovementsClient.getInstance().settings;
-
     AbstractSliderButton zoomMultiplierWidget;
     Button done;
     Button reset;
-
     Screen parent;
 
     public SpyglassConfigurationScreen(Screen parent) {

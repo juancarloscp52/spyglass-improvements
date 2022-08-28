@@ -22,6 +22,7 @@ public abstract class AbstractClientPlayerEntityMixin extends Player {
         super(level, blockPos, f, gameProfile, profilePublicKey);
     }
 
+    // Modify scoping FOV to the spyglass custom zoom level.
     @Inject(method = "getFieldOfViewModifier", at = @At("RETURN"), cancellable = true)
     public void fovMultiplier(CallbackInfoReturnable<Float> cir){
         if(Minecraft.getInstance().options.getCameraType().isFirstPerson() && isScoping())
