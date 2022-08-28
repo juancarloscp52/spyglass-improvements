@@ -7,7 +7,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.event.InputEvent;
@@ -82,7 +84,7 @@ public class EventsHandler {
         if(null != client.player) {
             if (SpyglassImprovementsClient.useSpyglass.isDown() && client.rightClickDelay == 0 && !client.player.isUsingItem()) {
                 if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
-                    slot = client.player.getInventory().findSlotMatchingItem(new ItemStack(Items.SPYGLASS));
+                    slot = findSlotByItem(client.player.getInventory(),Items.SPYGLASS);
                     //If the spyglass is in the inventory, move it to the off hand
                     if (slot >= 9) {
                         client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
@@ -112,4 +114,19 @@ public class EventsHandler {
         }
     }
 
+
+    /**
+     * Finds a slot containing an itemstack of the given item type.
+     * @param inventory - Players inventory.
+     * @param item - Item type to search for.
+     * @return Slot ID, -1 if item was not found.
+     */
+    private int findSlotByItem(Inventory inventory, Item item) {
+        for(int i = 0; i < inventory.items.size(); ++i) {
+            if (!inventory.items.get(i).isEmpty() && inventory.items.get(i).is(item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
