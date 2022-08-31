@@ -23,11 +23,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class EventsHandler {
 
     @SubscribeEvent
-    public void registerKeymapping(RegisterKeyMappingsEvent event){
-        event.register(SpyglassImprovementsClient.useSpyglass);
-    }
-
-    @SubscribeEvent
     public void onFovModifier(ScopeFOVModifierEvent event){
         event.setNewFov((float) SpyglassImprovementsClient.MULTIPLIER);
     }

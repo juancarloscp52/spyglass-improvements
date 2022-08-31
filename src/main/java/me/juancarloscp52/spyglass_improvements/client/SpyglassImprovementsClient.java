@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +32,10 @@ public class SpyglassImprovementsClient {
     // Zoom multiplier
     public static double MULTIPLIER = .1f;
 
+    @SubscribeEvent
+    public static void registerKeymapping(RegisterKeyMappingsEvent event){
+        event.register(SpyglassImprovementsClient.useSpyglass);
+    }
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         Gui.SPYGLASS_SCOPE_LOCATION = SpyglassImprovementsConfig.overlay.get().getResourceLocation();
