@@ -8,6 +8,7 @@
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",
+    "CameraTypeMixin",
     "InGameHudMixin",
     "KeyBindingInvoker",
     "MinecraftClientInvoker",
