@@ -9,6 +9,7 @@
   ],
   "client": [
     "AbstractClientPlayerMixin",
+    "CameraTypeMixin",
     "MinecraftMixin",
     "MouseHandlerMixin"
   ],
