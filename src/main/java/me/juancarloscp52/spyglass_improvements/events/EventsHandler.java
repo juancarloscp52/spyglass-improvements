@@ -7,12 +7,15 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +28,7 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
-    public void onMouseScroll(InputEvent.MouseScrollEvent event){
+    public void onMouseScroll(InputEvent.MouseScrollingEvent event){
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         if(player != null && player.isScoping() && client.options.getCameraType().isFirstPerson()){
@@ -36,12 +39,14 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent.PreLayer event){
-        if(event.getOverlay().equals(ForgeIngameGui.SPYGLASS_ELEMENT)
+    public void onRenderGameOverlay(RenderGuiOverlayEvent.Pre event){
+
+        if(event.getOverlay()== VanillaGuiOverlay.SPYGLASS.type()
                 && SpyglassImprovementsConfig.overlay.get()==SpyglassImprovementsConfig.Overlays.None){
             event.setCanceled(true);
         }
-        if(event.getOverlay().equals(ForgeIngameGui.CROSSHAIR_ELEMENT) && !SpyglassImprovementsConfig.showCrosshair.get()
+
+        if(event.getOverlay()==VanillaGuiOverlay.CROSSHAIR.type() && !SpyglassImprovementsConfig.showCrosshair.get()
                 && Minecraft.getInstance().player.isScoping()){
             event.setCanceled(true);
         }
@@ -53,7 +58,7 @@ public class EventsHandler {
     public void onStopUsingItem (LivingEntityUseItemEvent.Stop event){
         Minecraft client = Minecraft.getInstance();
         // When stop using, reset spyglass position if it was changed.
-        if(event.getEntityLiving().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
+        if(event.getEntity().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
             SpyglassImprovementsClient.useSpyglass.release();
             int slot = this.slot;
             if(client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
@@ -74,7 +79,7 @@ public class EventsHandler {
         if(null != client.player) {
             if (SpyglassImprovementsClient.useSpyglass.isDown() && client.rightClickDelay == 0 && !client.player.isUsingItem()) {
                 if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
-                    slot = client.player.getInventory().findSlotMatchingItem(new ItemStack(Items.SPYGLASS));
+                    slot = findSlotByItem(client.player.getInventory(),Items.SPYGLASS);
                     //If the spyglass is in the inventory, move it to the off hand
                     if (slot >= 9) {
                         client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
@@ -104,4 +109,19 @@ public class EventsHandler {
         }
     }
 
+
+    /**
+     * Finds a slot containing an itemstack of the given item type.
+     * @param inventory - Players inventory.
+     * @param item - Item type to search for.
+     * @return Slot ID, -1 if item was not found.
+     */
+    private int findSlotByItem(Inventory inventory, Item item) {
+        for(int i = 0; i < inventory.items.size(); ++i) {
+            if (!inventory.items.get(i).isEmpty() && inventory.items.get(i).is(item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
