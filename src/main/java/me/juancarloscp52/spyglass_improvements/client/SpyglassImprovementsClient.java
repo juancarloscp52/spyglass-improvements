@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -58,7 +59,10 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
         INSTANCE = this;
 
         loadSettings();
-
+        if(FabricLoader.getInstance().isModLoaded("physicsmod")){
+            settings.hideSettingsButton=true;
+            saveSettings();
+        }
         // Register event that checks if the keybinding is pressed and opens the spyglass.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(client.player !=null) {
