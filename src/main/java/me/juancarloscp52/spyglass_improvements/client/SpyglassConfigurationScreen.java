@@ -20,6 +20,7 @@ package me.juancarloscp52.spyglass_improvements.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
@@ -41,40 +42,34 @@ public class SpyglassConfigurationScreen extends Screen {
     protected void init() {
         zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(settings.multiplierDelta-.1f)*1.1f,(slider, translationKey, value) -> Component.translatable("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1f+((float)value)*.9f)), value -> settings.multiplierDelta = .1f+((float)value)*.9f);
         this.addRenderableWidget(zoomMultiplierWidget);
-
-        Button spyGlassOverlay = new Button(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
-            settings.overlay++;
-            if(settings.overlay>3)
-                settings.overlay=0;
-            button.setMessage(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
-        });
+        Button spyGlassOverlay = Button.builder(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)),button -> {
+                    settings.overlay++;
+                    if(settings.overlay>3)
+                        settings.overlay=0;
+                    button.setMessage(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
+                }).pos(this.width / 2 - 150, this.height / 6 + 38 - 6).width(300).build();
         this.addRenderableWidget(spyGlassOverlay);
-
-        Button showCrosshair = new Button(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        Button showCrosshair = Button.builder(Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO),button -> {
             settings.showCrossHair=!settings.showCrossHair;
             button.setMessage(Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
-        });
+        }).pos(this.width / 2 - 150, this.height / 6 + 62 - 6).width(300).build();
         this.addRenderableWidget(showCrosshair);
-
-        Button smoothCamera = new Button(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        Button smoothCamera = Button.builder(Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.smoothCamera=!settings.smoothCamera;
             button.setMessage(Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
-        });
+        }).pos(this.width / 2 - 150, this.height / 6 + 86 - 6).width(300).build();
         this.addRenderableWidget(smoothCamera);
-
-        Button hideButton = new Button(this.width / 2 - 150, this.height / 6 + 110 - 6, 300, 20, Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
-            settings.hideSettingsButton=!settings.hideSettingsButton;
-            button.setMessage(Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
-        },(buttonWidget, matrixStack, i, j) -> this.renderTooltip(matrixStack, font.split(Component.translatable("options.spyglass-improvements.hideSettingsButton.tooltip"), this.width / 2), i, j));
+        Button hideButton = Button.builder(Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+                    settings.hideSettingsButton=!settings.hideSettingsButton;
+                    button.setMessage(Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+                }).pos(this.width / 2 - 150, this.height / 6 + 110 - 6).width(300).tooltip(Tooltip.create(Component.translatable("options.spyglass-improvements.hideSettingsButton.tooltip"))).build();
         this.addRenderableWidget(hideButton);
-
-        this.reset = new Button(this.width / 2 - 100, this.height / 6 + 144, 200, 20, Component.translatable("options.spyglass-improvements.reset"), button -> {
+        this.reset = Button.builder(Component.translatable("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
             onDone();
-        });
+        }).pos(this.width / 2 - 100, this.height / 6 + 144).width(200).build();
         this.addRenderableWidget(reset);
-
-        this.done = new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, button -> onDone());
+        this.done = Button.builder(CommonComponents.GUI_DONE, button -> onDone()).pos(this.width / 2 - 100, this.height / 6 + 168).width(200).build();
         this.addRenderableWidget(done);
     }
 

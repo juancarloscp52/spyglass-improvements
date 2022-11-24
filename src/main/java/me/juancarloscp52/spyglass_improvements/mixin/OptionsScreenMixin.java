@@ -38,7 +38,7 @@ public class OptionsScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void insertEntropySettingsButton(CallbackInfo ci) {
         if(!SpyglassImprovementsClient.getInstance().settings.hideSettingsButton)
-            this.addRenderableWidget(new Button(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))));
+            this.addRenderableWidget(Button.builder(Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))).pos(this.width / 2 - 155, this.height / 6 + 21 - 6).width(310).build());
     }
 
 }
