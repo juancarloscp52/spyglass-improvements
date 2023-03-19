@@ -34,7 +34,7 @@ public class InGameHudMixin {
 
     // Toggle overlay.
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
-    public void noRender(float scale, CallbackInfo ci){ // No overlay.
+    public void noRender(PoseStack poseStack, float f, CallbackInfo ci){ // No overlay.
         if(SpyglassImprovementsClient.getInstance().settings.overlay == 3)
             ci.cancel();
     }
