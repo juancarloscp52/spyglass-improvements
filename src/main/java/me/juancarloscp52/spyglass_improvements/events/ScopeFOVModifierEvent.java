@@ -11,7 +11,7 @@ public class ScopeFOVModifierEvent extends Event {
     public ScopeFOVModifierEvent(double fov)
     {
         this.fov = fov;
-        this.setNewFov(Mth.lerp(Minecraft.getInstance().options.fovEffectScale().get(), 1.0, fov));
+        this.setNewFov(Mth.lerp(Minecraft.getInstance().options.fovEffectScale, 1.0, fov));
     }
 
     public double getFov()

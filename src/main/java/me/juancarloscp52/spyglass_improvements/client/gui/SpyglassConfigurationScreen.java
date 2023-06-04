@@ -24,6 +24,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class SpyglassConfigurationScreen extends Screen {
@@ -38,7 +39,7 @@ public class SpyglassConfigurationScreen extends Screen {
     boolean hideCrossHair;
     boolean smoothCamera;
     public SpyglassConfigurationScreen(Screen parent) {
-        super(Component.translatable("options.spyglass-improvements.title"));
+        super(new TranslatableComponent("options.spyglass-improvements.title"));
         this.parent = parent;
     }
 
@@ -48,31 +49,31 @@ public class SpyglassConfigurationScreen extends Screen {
         hideCrossHair = SpyglassImprovementsConfig.showCrosshair.get();
         smoothCamera = SpyglassImprovementsConfig.smoothCamera.get();
 
-        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(currentMultiplier-.1)*1.1,(slider, translationKey, value) -> Component.translatable("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1+(value*.9))), value -> {
+        zoomMultiplierWidget = new SpyglassSliderWidget(this.width / 2 - 150, this.height / 6 + 14 - 6, 300, 20,"options.spyglass-improvements.zoomQuantity",(currentMultiplier-.1)*1.1,(slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity", String.format("%.2f",.1+(value*.9))), value -> {
             currentMultiplier=.1+(value*.9);
         });
 
         this.addRenderableWidget(zoomMultiplierWidget);
 
-        ExtendedButton spyGlassOverlay = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())), button -> {
+        ExtendedButton spyGlassOverlay = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 38 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())), button -> {
             currentOverlay=currentOverlay.next();
-            button.setMessage(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+currentOverlay.name())));
         });
         this.addRenderableWidget(spyGlassOverlay);
 
-        ExtendedButton showCrosshair = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, Component.translatable("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        ExtendedButton showCrosshair = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 62 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             hideCrossHair=!hideCrossHair;
-            button.setMessage(Component.translatable("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.showCrosshair", hideCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
         this.addRenderableWidget(showCrosshair);
 
-        ExtendedButton smoothCameraButton = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, Component.translatable("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        ExtendedButton smoothCameraButton = new ExtendedButton(this.width / 2 - 150, this.height / 6 + 86 - 6, 300, 20, new TranslatableComponent("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             smoothCamera=!smoothCamera;
-            button.setMessage(Component.translatable("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.smoothCamera", smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
         this.addRenderableWidget(smoothCameraButton);
 
-        this.reset = new ExtendedButton(this.width / 2 - 100, this.height / 6 + 144, 200, 20, Component.translatable("options.spyglass-improvements.reset"), button -> {
+        this.reset = new ExtendedButton(this.width / 2 - 100, this.height / 6 + 144, 200, 20, new TranslatableComponent("options.spyglass-improvements.reset"), button -> {
             currentOverlay= SpyglassImprovementsConfig.Overlays.Default;
             currentMultiplier=0.1;
             onDone();
