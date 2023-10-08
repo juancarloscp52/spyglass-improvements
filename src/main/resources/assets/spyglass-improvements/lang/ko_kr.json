@@ -1,0 +1,17 @@
+{
+  "category.spyglass-improvements": "망원경 개선 모드",
+  "key.spyglass-improvements.use": "망원경 사용",
+  "options.spyglass-improvements.zoomQuantity": "확대율 조정 단위: %s 스텝",
+  "options.spyglass-improvements.hideSettingsButton": "설정 버튼 숨기기: %s",
+  "options.spyglass-improvements.hideSettingsButton.tooltip": "마인크래프트 설정의 망원경 설정 버튼을 숨깁니다. 이 화면은 Mod Menu에서 계속 액세스할 수 있습니다.",
+  "options.spyglass-improvements.showCrosshair": "조준점 보이기: %s",
+  "options.spyglass-improvements.smoothCamera": "시네마틱 카메라: %s",
+  "options.spyglass-improvements.spyglassOverlay": "망원경 오버레이: %s",
+  "options.spyglass-improvements.spyglassOverlay.0": "기본",
+  "options.spyglass-improvements.spyglassOverlay.1": "깔끔함",
+  "options.spyglass-improvements.spyglassOverlay.2": "원형",
+  "options.spyglass-improvements.spyglassOverlay.3": "없음",
+  "options.spyglass-improvements.title": "망원경 개선 모드 설정",
+  "options.spyglass-improvements.reset": "설정 초기화"
+
+}
