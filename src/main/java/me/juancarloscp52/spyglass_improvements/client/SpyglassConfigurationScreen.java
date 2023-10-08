@@ -27,7 +27,6 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
-
 public class SpyglassConfigurationScreen extends Screen {
     Settings settings = SpyglassImprovementsClient.getInstance().settings;
     AbstractSliderButton zoomMultiplierWidget;
@@ -76,7 +75,7 @@ public class SpyglassConfigurationScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        this.renderBackground(guiGraphics);
+        this.renderBackground(guiGraphics, mouseX, mouseY, delta);
         guiGraphics.drawString(this.font, title, this.width / 2 - font.width(title)/2, 20, 16777215);
         super.render(guiGraphics, mouseX, mouseY, delta);
     }
