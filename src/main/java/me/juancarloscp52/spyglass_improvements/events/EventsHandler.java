@@ -32,7 +32,7 @@ public class EventsHandler {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         if(player != null && player.isScoping() && client.options.getCameraType().isFirstPerson()){
-            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(event.getScrollDelta() * SpyglassImprovementsConfig.multiplierDelta.get()), .1,.8);
+            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(event.getDeltaY() * SpyglassImprovementsConfig.multiplierDelta.get()), .1,.8);
             player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, (float)(1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER))));
             event.setCanceled(true);
         }
