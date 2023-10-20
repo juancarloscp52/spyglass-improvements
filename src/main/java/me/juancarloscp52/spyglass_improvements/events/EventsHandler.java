@@ -58,7 +58,7 @@ public class EventsHandler {
     public void onStopUsingItem (LivingEntityUseItemEvent.Stop event){
         Minecraft client = Minecraft.getInstance();
         // When stop using, reset spyglass position if it was changed.
-        if(event.getEntity().level.isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
+        if(event.getEntity().level().isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()){
             SpyglassImprovementsClient.useSpyglass.release();
             int slot = this.slot;
             if(client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)){

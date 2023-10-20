@@ -17,14 +17,15 @@
 
 package me.juancarloscp52.spyglass_improvements.client.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.juancarloscp52.spyglass_improvements.config.SpyglassImprovementsConfig;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
+import org.jetbrains.annotations.NotNull;
 
 public class SpyglassConfigurationScreen extends Screen {
 
@@ -83,10 +84,10 @@ public class SpyglassConfigurationScreen extends Screen {
         this.addRenderableWidget(done);
     }
 
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        drawCenteredString(matrices, this.font, title, this.width / 2, 40, 16777215);
-        super.render(matrices, mouseX, mouseY, delta);
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics);
+        guiGraphics.drawCenteredString(this.font, title, this.width / 2, 40, 16777215);
+        super.render(guiGraphics, mouseX, mouseY, delta);
     }
 
     private void onDone() {
