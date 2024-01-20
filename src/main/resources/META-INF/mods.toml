@@ -37,3 +37,10 @@ mandatory=true
 versionRange="${minecraft_range}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="curios"
+mandatory=false
+versionRange="${curios_range}"
+ordering="BEFORE"
+side="BOTH"
