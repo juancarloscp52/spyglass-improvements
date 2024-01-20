@@ -93,10 +93,7 @@ repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+    maven { url = "https://maven.theillusivec4.top/" }
 }
 
 dependencies {
@@ -119,6 +116,7 @@ processResources {
 
         minecraft_range: minecraft_range,
         forge_range: forge_range,
+        curios_range: curios_range,
 
         mod_id: mod_id,
         mod_version: mod_version,
