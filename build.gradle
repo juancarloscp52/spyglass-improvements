@@ -11,6 +11,11 @@ buildscript {
     }
 }
 
+plugins {
+    id 'eclipse'
+    id 'idea'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
@@ -70,6 +75,7 @@ minecraft {
         }
 
         server {
+            workingDirectory project.file('run/server')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
@@ -102,7 +108,7 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    // To test soft Curios dependency, uncomment the runtimeOnly line below when running runClient and runServer tasks
+    // To test soft Curios dependency, (un)comment the runtimeOnly line below when running runClient and runServer tasks
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
 
