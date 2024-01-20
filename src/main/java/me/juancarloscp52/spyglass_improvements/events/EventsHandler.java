@@ -69,7 +69,7 @@ public class EventsHandler {
     }
 
     // Tracks the slot were the spyglass is located
-    public int slot = -1;
+    public static int slot = -1;
     @SubscribeEvent
     public void onStopUsingItem (LivingEntityUseItemEvent.Stop event){
         if (client.player == null || client.gameMode == null) return;
@@ -78,14 +78,15 @@ public class EventsHandler {
         // When stop using, reset spyglass position if it was changed.
         if (event.getEntity().level().isClientSide && SpyglassImprovementsClient.useSpyglass.consumeClick()) {
             SpyglassImprovementsClient.useSpyglass.release();
-            int slot = this.slot;
+
             if (player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
                 if (slot > 8) {
                     client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
-                    this.slot = -1;
+                    slot = -1;
                 }
             } else if (slot >= 0 && slot <= 8) {
                 player.getInventory().selected = slot;
+                slot = -1;
             }
         }
     }
@@ -103,6 +104,8 @@ public class EventsHandler {
                         && !force_spyglass
         ) {
             // Player wants and is able to use spyglass
+            slot = findSlotByItem(player.getInventory(), Items.SPYGLASS);
+
             if (player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
                 // In offhand
                 client.gameMode.useItem(player, InteractionHand.OFF_HAND);
@@ -120,12 +123,10 @@ public class EventsHandler {
                 forceUseSpyglass(player);
 
             } else {
-                // In inventory
-                slot = findSlotByItem(player.getInventory(), Items.SPYGLASS);
-
-                // If the spyglass is in the inventory, move it to the offhand
                 if (slot >= 9) {
+                    // If the spyglass is in the inventory, move it to the offhand
                     client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
+                    client.gameMode.useItem(player, InteractionHand.OFF_HAND);
                 } else if (slot >= 0) {
                     // If the item is in the hot-bar, select the item and interact with it.
                     int oldSlot = player.getInventory().selected;
