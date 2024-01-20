@@ -99,10 +99,7 @@ repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+    maven { url = "https://maven.theillusivec4.top/" }
 }
 
 dependencies {
@@ -111,9 +108,12 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    // To test soft Curios dependency, (un)comment the runtimeOnly line below when running runClient and runServer tasks
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
-// Example for how to get properties into the manifest for reading at runtime.
 
 // To update mods.toml automatically from gradle.properties
 processResources {
@@ -122,6 +122,7 @@ processResources {
 
             minecraft_range: minecraft_range,
             forge_range: forge_range,
+            curios_range: curios_range,
 
             mod_id: mod_id,
             mod_version: mod_version,
