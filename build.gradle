@@ -118,14 +118,12 @@ dependencies {
 // To update mods.toml automatically from gradle.properties
 processResources {
     var replaceProperties = [
-        minecraft_version: minecraft_version,
+        mod_id: mod_id,
+        version: version,
 
         minecraft_range: minecraft_range,
         forge_range: forge_range,
         curios_range: curios_range,
-
-        mod_id: mod_id,
-        mod_version: mod_version,
     ]
 
     inputs.properties(replaceProperties)
