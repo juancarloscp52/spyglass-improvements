@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import top.theillusivec4.curios.api.SlotContext;
@@ -60,7 +60,7 @@ public class SpyglassCuriosRenderer implements ICurioRenderer {
 
         itemRenderer.render(
                 stack,
-                TransformType.NONE,
+                ItemDisplayContext.NONE,
                 true,
                 poseStack,
                 renderTypeBuffer,
