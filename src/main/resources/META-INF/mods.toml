@@ -12,7 +12,7 @@ issueTrackerURL="https://github.com/juancarloscp52/spyglass-improvements/issues"
 
 [[mods]]
 modId="${mod_id}"
-version="${mod_version}+mc${minecraft_version}+forge"
+version="${version}"
 displayName="Spyglass Improvements"
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
