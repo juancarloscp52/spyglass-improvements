@@ -18,7 +18,7 @@ displayName="Spyglass Improvements"
 #updateJSONURL="http://myurl.me/" #optional
 displayURL="https://www.curseforge.com/minecraft/mc-mods/spyglass-improvements"
 logoFile="icon.png"
-#credits="Thanks for this example mod goes to Java"
+credits="Curios support by Kimchiloof"
 authors="juancarloscp52(Im_JC)"
 description='''
 Enhance Minecraft's Spyglass with adjustable zoom, quick access and various spyglass overlays.
