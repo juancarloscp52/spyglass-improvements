@@ -18,7 +18,7 @@ Available versions:
 ### Added
 
 -   Forge:
-    -   **[Curios API](https://www.curseforge.com/minecraft/mc-mods/curios)** support - Spyglass can now be equipped in the belt Curios slot and accessed via key-bind.
+    -   **[Curios API](https://www.curseforge.com/minecraft/mc-mods/curios)** support - Spyglass can now be equipped in the belt Curios slot and accessed via key-bind (Thanks Kimchiloof).
 
 ### Changed
 
@@ -48,15 +48,15 @@ Available versions:
     -   (2022-12-08) Updated to 1.19.3
     -   (2023-03-19) Updated to 1.19.4
     -   (2023-06-07) Updated to 1.20 and 1.20.1
-    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean and Brazilian Portuguese translations.
+    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean and Brazilian Portuguese translations (Thanks Yusi0 and FITFC).
 -   Forge:
     -   Can now use the spyglass and zoom while in third person.
     -   Updated to 1.19.3 and 1.19.4
     -   (2023-06-18) Updated to 1.20 and 1.20.1
-    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean translation.
+    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean translation (Thanks Yusi0).
 -   NeoForge:
     -   Can now use the spyglass and zoom while in third person.
-    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean translation.
+    -   (2023-10-20) Updated to 1.20.2, 1.20.3, and 1.20.4, added Korean translation (Thanks Yusi0).
 
 ### Fixed
 
