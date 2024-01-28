@@ -8,10 +8,10 @@ Spyglass Improvements is a mod that add various functionality and improvements t
 
 
 ## ScreenShots:
-![Zoom Example](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/zoom.gif)
-![Clear Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/clear.png)
-![Circle Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/circle.png)
-![None Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/master/images/none.png)
+![Zoom Example](https://github.com/juancarloscp52/spyglass-improvements/blob/forge-1.20.2/images/zoom.gif?raw=true)
+![Clear Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/forge-1.20.2/images/clear.png?raw=true)
+![Circle Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/forge-1.20.2/images/circle.png?raw=true)
+![None Layout](https://github.com/juancarloscp52/spyglass-improvements/blob/forge-1.20.2/images/none.png?raw=true)
 
 ## Installation:
 This mod requires [Forge](https://files.minecraftforge.net/). You can download Spyglass Improvements from the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/spyglass-improvements), make sure to download the forge version.
