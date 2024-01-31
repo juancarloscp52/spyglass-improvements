@@ -9,7 +9,8 @@ on:
         required: true
         type: string
       minecraftVersion:
-        description: '[1.20.2,1.21)'
+        description: 'Minecraft Version. Ex: [1.20.2,1.21)'
+        default: '[1.20.2,1.21)'
         required: true
       javaVersion:
         required: true
@@ -21,7 +22,7 @@ on:
         type: string
       releaseName:
         required: true
-        description: 'Mod publish name: Ex: [1.20.2 Forge] Spyglass Improvements 1.5'
+        description: 'Mod publish name. Ex: [1.20.2 Forge] Spyglass Improvements 1.5'
         type: string
 
 env:
