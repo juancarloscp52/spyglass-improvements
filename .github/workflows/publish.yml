@@ -1,13 +1,33 @@
 
 name: Publish Spylgass Improvements to CurseForge and Modrinth
 
-on: [ workflow_dispatch ]
+on:
+  workflow_dispatch:
+    inputs:
+      loader:
+        description: 'Mod loader. Ex: forge Ex: fabric'
+        required: true
+        type: string
+      minecraftVersion:
+        required: true
+      javaVersion:
+        required: true
+        default: 17
+        type: number
+      modVersion:
+        required: true
+        description: 'Mod version string. Ex: 1.5+mc1.20.2+forge'
+        type: string
+      releaseName:
+        required: true
+        description: 'Mod publish name: Ex: [1.20.2 Forge] Spyglass Improvements 1.5'
+        type: string
 
 env:
-  MINECRAFT_VERSION: '[1.20.2,1.21)'
-  JAVA_VERSION: 17
-  VERSION: 1.5+mc1.20.2+forge
-  RELEASE_NAME: '[1.20.2 Forge] Spyglass Improvements 1.5'
+  MINECRAFT_VERSION: ${{ inputs.minecraftVersion }}
+  JAVA_VERSION: ${{ inputs.javaVersion }}
+  VERSION: ${{ inputs.modVersion }}
+  RELEASE_NAME: ${{ inputs.releaseName }}
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
 
@@ -30,7 +50,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: "temurin"
-          java-version: 17
+          java-version: "${{env.JAVA_VERSION}}"
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
@@ -56,6 +76,6 @@ jobs:
           dependencies: |
             curios(optional)
 
-          loaders: forge
+          loaders: "${{ inputs.loader }}"
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
