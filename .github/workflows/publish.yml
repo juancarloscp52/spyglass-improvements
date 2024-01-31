@@ -18,10 +18,12 @@ on:
         type: number
       modVersion:
         required: true
+        default: '1.5+mc1.20.2+forge'
         description: 'Mod version string. Ex: 1.5+mc1.20.2+forge'
         type: string
       releaseName:
         required: true
+        default: '[1.20.2 Forge] Spyglass Improvements 1.5'
         description: 'Mod publish name. Ex: [1.20.2 Forge] Spyglass Improvements 1.5'
         type: string
 
@@ -74,7 +76,7 @@ jobs:
           name: "${{env.RELEASE_NAME}}"
           version: "${{env.VERSION}}"
           version-type: release
-          changelog-file: CHANGELOG.md
+          changelog-file: changelog.md
           dependencies: |
             curios(optional)
 
