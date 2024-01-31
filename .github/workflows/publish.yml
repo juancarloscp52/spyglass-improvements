@@ -9,6 +9,7 @@ on:
         required: true
         type: string
       minecraftVersion:
+        description: '[1.20.2,1.21)'
         required: true
       javaVersion:
         required: true
