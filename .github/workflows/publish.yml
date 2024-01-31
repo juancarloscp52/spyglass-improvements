@@ -4,6 +4,12 @@ name: Publish Spylgass Improvements to CurseForge and Modrinth
 on:
   workflow_dispatch:
     inputs:
+      curseforge:
+        default: true
+        type: boolean
+      modrinth:
+        default: true
+        type: boolean
       loader:
         description: 'Mod loader. Ex: forge Ex: fabric'
         required: true
@@ -21,7 +27,7 @@ on:
         default: '1.5+mc1.20.2+forge'
         description: 'Mod version string. Ex: 1.5+mc1.20.2+forge'
         type: string
-      releaseName:
+      releaseNameCurseforge:
         required: true
         default: '[1.20.2 Forge] Spyglass Improvements 1.5'
         description: 'Mod publish name. Ex: [1.20.2 Forge] Spyglass Improvements 1.5'
@@ -63,12 +69,28 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
-      - name: Publish (CurseForge/Modrinth)
+      - name: Publish (CurseForge)
+        if: ${{ inputs.curseforge }}
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: 571264
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: changelog.md
+          dependencies: |
+            curios(optional)
+
+          loaders: "${{ inputs.loader }}"
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+      - name: Publish (Modrinth)
+        if: ${{ inputs.modrinth }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
           modrinth-id: Z6ykjRlM
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           modrinth-featured: true
