@@ -9,7 +9,7 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
-## [2.0.0] - 2024-mm-dd
+## [1.5] - 2024-01-31
 
 Available versions:
 
