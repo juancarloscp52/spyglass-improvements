@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -33,9 +34,10 @@ import java.io.IOException;
 public class SpyglassImprovementsClient implements ClientModInitializer {
 
     private boolean force_spyglass = false;
+    private boolean trinketsLoaded = false;
     public static final Logger LOGGER = LogManager.getLogger();
 
-    // Use spyglass keybinding, By defefault, is binded to Z.
+    // Use spyglass keybinding, By default, is bound to Z.
     public static KeyMapping useSpyglass = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             "key.spyglass-improvements.use",
             InputConstants.Type.KEYSYM,
@@ -53,7 +55,6 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
     // Zoom multiplier
     public static float MULTIPLIER = .1f;
 
-
     @Override
     public void onInitializeClient() {
         INSTANCE = this;
@@ -63,50 +64,70 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
             settings.hideSettingsButton=true;
             saveSettings();
         }
+        trinketsLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
+
+        if(trinketsLoaded)
+            TrinketsIntegration.registerRenderer();
+
         // Register event that checks if the keybinding is pressed and opens the spyglass.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(client.player !=null) {
-                if (useSpyglass.isDown() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()) {
-                    // Search for spyglass in inventory if it is not already in the off-hand.
-                    if (!client.player.getOffhandItem().getItem().equals(Items.SPYGLASS)) {
-                        slot = findSlotByItem(client.player.getInventory(),Items.SPYGLASS);
-                        //If the spyglass is in the inventory, move it to the off-hand
-                        if (slot >= 9) {
-                            client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, client.player);
-                            return;
-                        } else if (slot >= 0) {
-                            // If the item is in the hotbar, select the item and interact with it.
-                            int oldSlot = client.player.getInventory().selected;
-                            client.player.getInventory().selected = slot;
-                            slot = oldSlot;
-                            client.gameMode.useItem(client.player, InteractionHand.MAIN_HAND);
-                            return;
-                        }
+            if(client.player==null || client.gameMode == null)
+                return;
 
-                        // If player is in creative mode, show spyglass even if it does not exist in the inventory.
-                        if(client.player.isCreative() && !force_spyglass){
-                            FriendlyByteBuf buf = PacketByteBufs.create();
-                            buf.writeBoolean(true);
-                            force_spyglass=true;
-                            client.player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
-                            ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
-                        }
-                    } else {
-                        //If spyglass is already in the off-hand, use the item.
-                        client.gameMode.useItem(client.player, InteractionHand.OFF_HAND);
+            LocalPlayer player = client.player;
+
+            if(SpyglassImprovementsClient.useSpyglass.isDown() && ((MinecraftClientInvoker) client).getItemUseCooldown() == 0 && !client.player.isUsingItem()){
+                // Player wants and is able to use spyglass
+                slot = findSlotByItem(client.player.getInventory(),Items.SPYGLASS);
+
+                if(player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
+                    // In offhand
+                    client.gameMode.useItem(player, InteractionHand.OFF_HAND);
+                } else if (player.getMainHandItem().getItem().equals(Items.SPYGLASS)) {
+                    // In main hand
+                    client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
+                } else if (player.isCreative()) {
+                    // On creative mode, we do not need to have a spyglass to use it
+                    forceUseSpyglass(player);
+                } else if (trinketsLoaded && TrinketsIntegration.verifySpyglassTrinket(player)) {
+                    // In Trinkets Slot
+                    forceUseSpyglass(player);
+                } else {
+                    if (slot >= 9) {
+                        // If the spyglass is in the inventory, move it to the offhand
+                        client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
+                        client.gameMode.useItem(player, InteractionHand.OFF_HAND);
+                    } else if (slot >= 0) {
+                        // If the item is in the hot-bar, select the item and interact with it.
+                        int oldSlot = player.getInventory().selected;
+                        player.getInventory().selected = slot;
+                        slot = oldSlot;
+                        client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
                     }
                 }
-                // Hide spyglass when key is no longer pressed.
-                if(force_spyglass && !useSpyglass.isDown()){
-                    FriendlyByteBuf buf = PacketByteBufs.create();
-                    buf.writeBoolean(false);
-                    force_spyglass=false;
-                    client.player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f);
-                    ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
-                }
+
+            } else if (!useSpyglass.isDown() && force_spyglass){
+                // Release force spyglass when not pressing the key-bind
+                FriendlyByteBuf buf = PacketByteBufs.create();
+                buf.writeBoolean(false);
+                force_spyglass = false;
+                player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f);
+                ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
+
             }
         });
+
         LOGGER.info("Initialized spyglass-improvements");
+    }
+
+    private void forceUseSpyglass(LocalPlayer player) {
+        if(force_spyglass)
+            return;
+        FriendlyByteBuf buf = PacketByteBufs.create();
+        buf.writeBoolean(true);
+        force_spyglass = true;
+        player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
+        ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
     }
 
     public void loadSettings() {
