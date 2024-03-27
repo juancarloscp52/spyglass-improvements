@@ -19,6 +19,8 @@ Available versions:
 
 -   Forge:
     -   **[Curios API](https://www.curseforge.com/minecraft/mc-mods/curios)** support - Spyglass can now be equipped in the belt Curios slot and accessed via key-bind (Thanks Kimchiloof).
+-   Fabric:
+    -   **[Trinkets ](https://www.curseforge.com/minecraft/mc-mods/trinkets)** support - Spyglass can now be equipped in the belt trinket slot and accessed via key-bind.
 
 ### Changed
 
@@ -26,6 +28,9 @@ Available versions:
     -   Mod now has a soft dependency on Curios API (on both client and server).
         -   If Curios API is not installed, the mod will still work on the client as before.
     -   Some backend code to make future updates easier.
+-   Fabric:
+    -   Mod now has a soft dependency on Trinkets (on both client and server).
+        -   If Trinkets API is not installed, the mod will still work on the client as before.
 
 ### Fixed
 
