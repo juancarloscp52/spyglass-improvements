@@ -82,7 +82,7 @@ jobs:
           version-type: release
           changelog-file: changelog.md
           dependencies: |
-            curios(optional)
+            trinkets(optional)
 
           loaders: "${{ inputs.loader }}"
           game-versions: "${{env.MINECRAFT_VERSION}}"
@@ -101,7 +101,7 @@ jobs:
           version-type: release
           changelog-file: changelog.md
           dependencies: |
-            curios(optional)
+            trinkets(optional)
 
           loaders: "${{ inputs.loader }}"
           game-versions: "${{env.MINECRAFT_VERSION}}"
