@@ -1,0 +1,108 @@
+
+name: Publish Spylgass-Improvements to CurseForge and Modrinth
+
+on:
+  workflow_dispatch:
+    inputs:
+      curseforge:
+        default: true
+        type: boolean
+      modrinth:
+        default: true
+        type: boolean
+      loader:
+        description: 'Mod loader. Ex: forge Ex: fabric'
+        default: fabric
+        required: true
+        type: string
+      minecraftVersion:
+        description: 'Minecraft Version. Ex: [1.20.2,1.21)'
+        default: '[1.19.3]'
+        required: true
+      javaVersion:
+        required: true
+        default: 17
+        type: number
+      modVersion:
+        required: true
+        default: '1.5+mc1.19.3+fabric'
+        description: 'Mod version string. Ex: 1.5+mc1.20.2+forge'
+        type: string
+      releaseName:
+        required: true
+        default: '[1.19.3 Fabric] Spyglass Improvements 1.5'
+        description: 'Mod publish name. Ex: [1.20.2 Fabric] Spyglass Improvements 1.5'
+        type: string
+
+env:
+  MINECRAFT_VERSION: ${{ inputs.minecraftVersion }}
+  JAVA_VERSION: ${{ inputs.javaVersion }}
+  VERSION: ${{ inputs.modVersion }}
+  RELEASE_NAME: ${{ inputs.releaseName }}
+  MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "${{env.JAVA_VERSION}}"
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Publish (CurseForge)
+        if: ${{ inputs.curseforge }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: 571264
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: changelog.md
+          dependencies: |
+            trinkets(optional)
+
+          loaders: "${{ inputs.loader }}"
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+      - name: Publish (Modrinth)
+        if: ${{ inputs.modrinth }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: Z6ykjRlM
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
+          modrinth-featured: true
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: changelog.md
+          dependencies: |
+            trinkets(optional)
+
+          loaders: "${{ inputs.loader }}"
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
