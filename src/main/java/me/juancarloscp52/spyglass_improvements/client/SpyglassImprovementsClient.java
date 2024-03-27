@@ -71,7 +71,7 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
 
         // Register event that checks if the keybinding is pressed and opens the spyglass.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(client.player==null || client.gameMode == null)
+            if(client.player==null || client.gameMode == null || client.level ==null)
                 return;
 
             LocalPlayer player = client.player;
@@ -82,10 +82,10 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
 
                 if(player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
                     // In offhand
-                    client.gameMode.useItem(player, InteractionHand.OFF_HAND);
+                    client.gameMode.useItem(player, client.level, InteractionHand.OFF_HAND);
                 } else if (player.getMainHandItem().getItem().equals(Items.SPYGLASS)) {
                     // In main hand
-                    client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
+                    client.gameMode.useItem(player, client.level, InteractionHand.MAIN_HAND);
                 } else if (player.isCreative()) {
                     // On creative mode, we do not need to have a spyglass to use it
                     forceUseSpyglass(player);
@@ -96,13 +96,13 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
                     if (slot >= 9) {
                         // If the spyglass is in the inventory, move it to the offhand
                         client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
-                        client.gameMode.useItem(player, InteractionHand.OFF_HAND);
+                        client.gameMode.useItem(player, client.level, InteractionHand.OFF_HAND);
                     } else if (slot >= 0) {
                         // If the item is in the hot-bar, select the item and interact with it.
                         int oldSlot = player.getInventory().selected;
                         player.getInventory().selected = slot;
                         slot = oldSlot;
-                        client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
+                        client.gameMode.useItem(player, client.level, InteractionHand.MAIN_HAND);
                     }
                 }
 
