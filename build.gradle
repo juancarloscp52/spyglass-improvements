@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
@@ -12,7 +12,6 @@ allprojects {
     group = rootProject.maven_group
     version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}+${project.name}"
 }
-
 subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
@@ -63,8 +62,7 @@ subprojects {
                 source: rootProject.source,
                 issues: rootProject.issues,
                 minecraft_range: rootProject.minecraft_range,
-                neoforge_range: rootProject.neoforge_range,
-                curios_range: curios_range
+                neoforge_range: rootProject.neoforge_range
         ]
 
         inputs.properties(replaceProperties)

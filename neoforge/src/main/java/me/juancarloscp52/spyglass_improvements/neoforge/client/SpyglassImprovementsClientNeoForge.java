@@ -1,13 +1,11 @@
 package me.juancarloscp52.spyglass_improvements.neoforge.client;
+
 import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentIntegration;
-import me.juancarloscp52.spyglass_improvements.neoforge.client.integratons.CuriosIntegration;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -23,14 +21,7 @@ public class SpyglassImprovementsClientNeoForge {
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
         modEventBus.register(this);
 
-        IEquipmentIntegration curios;
-        if (ModList.get().isLoaded("curios")) {
-            curios = new CuriosIntegration();
-            curios.registerRenderer();
-        } else {
-            curios = null;
-        }
-        SpyglassImprovementsClient.getInstance().init(curios);
+        SpyglassImprovementsClient.getInstance().init(null);
     }
 
     public void onClientTick(ClientTickEvent.Post event){
