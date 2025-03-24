@@ -53,6 +53,8 @@ public class SpyglassImprovementsClient {
     public void init(IEquipmentIntegration equipmentIntegration) {
         INSTANCE = this;
         this.equipmentIntegration = equipmentIntegration;
+        if(this.equipmentIntegration!=null)
+            this.equipmentIntegration.registerRenderer();
         loadSettings();
         LOGGER.info("Spyglass Improvements Client Initialized");
     }

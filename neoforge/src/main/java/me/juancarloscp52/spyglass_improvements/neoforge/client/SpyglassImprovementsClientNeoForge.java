@@ -2,6 +2,7 @@ package me.juancarloscp52.spyglass_improvements.neoforge.client;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentIntegration;
+import me.juancarloscp52.spyglass_improvements.integrations.AccessoriesIntegration;
 import me.juancarloscp52.spyglass_improvements.neoforge.client.integratons.CuriosIntegration;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -23,12 +24,11 @@ public class SpyglassImprovementsClientNeoForge {
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
         modEventBus.register(this);
 
-        IEquipmentIntegration curios;
+        IEquipmentIntegration curios = null;
         if (ModList.get().isLoaded("curios")) {
             curios = new CuriosIntegration();
-            curios.registerRenderer();
-        } else {
-            curios = null;
+        } else if (ModList.get().isLoaded("accessories")) {
+            curios = new AccessoriesIntegration();
         }
         SpyglassImprovementsClient.getInstance().init(curios);
     }

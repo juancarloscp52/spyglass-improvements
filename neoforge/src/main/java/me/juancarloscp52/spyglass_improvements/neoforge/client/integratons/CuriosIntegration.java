@@ -4,14 +4,13 @@ import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentInt
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CuriosIntegration implements IEquipmentIntegration {
 
     public void registerRenderer (){
-        CuriosRendererRegistry.register(Items.SPYGLASS, () -> new SpyglassCuriosRenderer(this));
+        //CuriosRendererRegistry.register(Items.SPYGLASS, () -> new SpyglassCuriosRenderer(this));
     }
 
     @Override

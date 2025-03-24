@@ -27,7 +27,7 @@ public abstract class MouseMixin {
     @Unique
     MouseEvents spyglass_improvements$mouseEvents = new MouseEvents();
 
-    @Inject(method = "onScroll",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;swapPaint(D)V"),cancellable = true)
+    @Inject(method = "onScroll",at = @At(value = "INVOKE", target = "Lnet/minecraft/client/ScrollWheelHandler;getNextScrollWheelSelection(DII)I"),cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci){
         spyglass_improvements$mouseEvents.onScroll(vertical,ci);
     }

@@ -1,12 +1,14 @@
 {
   "required": true,
   "package": "me.juancarloscp52.spyglass_improvements.fabric.mixin",
+  "plugin": "me.juancarloscp52.spyglass_improvements.fabric.SpyglassMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
     "MouseMixin"
   ],
   "mixins": [
+    "SpyglassItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
