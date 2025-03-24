@@ -33,6 +33,12 @@ versionRange="${curios_range}"
 ordering="BEFORE"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="accessories"
+type="optional"
+ordering="BEFORE"
+side="BOTH"
+
 [[mixins]]
 config = "spyglass_improvements.common.mixins.json"
 [[mixins]]

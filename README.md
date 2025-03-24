@@ -5,7 +5,7 @@ Spyglass Improvements is a mod that add various functionality and improvements t
 - Spyglass Zoom using mouse scroll wheel.
 - Quick access to the Spyglass by pressing 'Z'.
 - Different Spyglass overlays.
-- Compatibility with Equipment Slot mods such as [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets), [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories) and [Curios](https://www.curseforge.com/minecraft/mc-mods/curios-continuation) API.
+- Compatibility with Equipment Slot mods such as [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories)(recommended), [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets) and [Curios](https://www.curseforge.com/minecraft/mc-mods/curios-continuation) API.
 
 ## ScreenShots:
 ![Zoom Example](https://raw.githubusercontent.com/juancarloscp52/spyglass-improvements/fabric-1.19/images/zoom.gif)
@@ -20,16 +20,15 @@ Install NeoForge.
 Drop the mod jar inside the mods folder.
 
 To enable Equipment Slot functionality you can use any of these options:
- - [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories) and the [Accessories Curios Compat Layer](https://www.curseforge.com/minecraft/mc-mods/accessories-cc-layer).
- - [Curios API Continuation](https://www.curseforge.com/minecraft/mc-mods/curios-continuation).
+ - [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories) native support (recommended).
+ - [Curios API](https://www.curseforge.com/minecraft/mc-mods/curios).
 ### Fabric
 This mod requires [Fabric](https://fabricmc.net/use/) and [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api). You can download Spyglass Improvements from the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/spyglass-improvements), make sure to download the fabric version.
 Drop the mod and Fabric API JARs inside the mods folder.
 
 To enable Equipment Slot functionality you can use any of these options:
+- [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories) native support (recommended).
 - [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets).
-- [Accessories](https://www.curseforge.com/minecraft/mc-mods/accessories) and the [Accessories Trinkets Compat Layer](https://www.curseforge.com/minecraft/mc-mods/accessories-tc-layer).
-
 
 ## Building from source:
 Under Linux / Mac OS

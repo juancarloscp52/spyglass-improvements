@@ -9,6 +9,16 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.8] - 2025-03-24 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21.2, 1.21.3, 1.21.4
+-   NeoForge: 1.21.2, 1.21.3, 1.21.4
+
+### Changes
+-   Added Accessories Support for both Fabric and Neoforge. Its recommended to use Accessories when possible.
+-   Fixed Curios/Trinked support. Spyglass will no longer render on player waist.
+
 ## [1.5.7] - 2024-08-16 (fabric, neoforge)
 
 Available versions:
