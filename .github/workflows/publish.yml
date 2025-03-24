@@ -95,6 +95,7 @@ jobs:
           changelog-file: changelog.md
           dependencies: |
             curios(optional)
+            accessories(recommended)
 
           loaders: "neoforge"
           game-versions: "${{env.MINECRAFT_VERSION}}"
@@ -115,6 +116,7 @@ jobs:
           changelog-file: changelog.md
           dependencies: |
             trinkets(optional)
+            accessories(recommended)
 
           loaders: "fabric"
           game-versions: "${{env.MINECRAFT_VERSION}}"
@@ -136,6 +138,7 @@ jobs:
           changelog-file: changelog.md
           dependencies: |
             curios(optional)
+            accessories(recommended)
 
           loaders: "neoforge"
           game-versions: "${{env.MINECRAFT_VERSION}}"
@@ -157,6 +160,7 @@ jobs:
           changelog-file: changelog.md
           dependencies: |
             trinkets(optional)
+            accessories(recommended)
 
           loaders: "fabric"
           game-versions: "${{env.MINECRAFT_VERSION}}"
