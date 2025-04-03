@@ -9,10 +9,6 @@ public class TrinketsIntegration implements IEquipmentIntegration {
     @Override
     public boolean isPlayerUsingSpyglass(Player player) {
         var trinketComponentOptional = TrinketsApi.getTrinketComponent(player);
-        return trinketComponentOptional.map(trinketComponent -> trinketComponent.isEquipped(Items.SPYGLASS)).orElse(false);    }
-
-    @Override
-    public void registerRenderer() {
-        //TrinketRendererRegistry.registerRenderer(Items.SPYGLASS, new SpyglassTrinketRenderer(this));
+        return trinketComponentOptional.map(trinketComponent -> trinketComponent.isEquipped(Items.SPYGLASS)).orElse(false);
     }
 }

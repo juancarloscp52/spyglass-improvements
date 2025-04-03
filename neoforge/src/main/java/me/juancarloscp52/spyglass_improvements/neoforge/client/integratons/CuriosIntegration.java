@@ -9,10 +9,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CuriosIntegration implements IEquipmentIntegration {
 
-    public void registerRenderer (){
-        //CuriosRendererRegistry.register(Items.SPYGLASS, () -> new SpyglassCuriosRenderer(this));
-    }
-
     @Override
     public boolean isPlayerUsingSpyglass(Player player) {
         AtomicBoolean spyglassInCurios = new AtomicBoolean(false);

@@ -12,10 +12,4 @@ public class AccessoriesIntegration implements IEquipmentIntegration {
     public boolean isPlayerUsingSpyglass(Player player) {
         return AccessoriesCapability.get(player).isEquipped(Items.SPYGLASS);
     }
-
-    @Override
-    public void registerRenderer() {
-
     }
-
-}

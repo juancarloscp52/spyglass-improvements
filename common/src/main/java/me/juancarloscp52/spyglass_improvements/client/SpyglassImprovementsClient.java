@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class SpyglassImprovementsClient {
     public static final String MOD_ID = "spyglass_improvements";
@@ -53,8 +55,8 @@ public class SpyglassImprovementsClient {
     public void init(IEquipmentIntegration equipmentIntegration) {
         INSTANCE = this;
         this.equipmentIntegration = equipmentIntegration;
-        if(this.equipmentIntegration!=null)
-            this.equipmentIntegration.registerRenderer();
+//        if(this.equipmentIntegration!=null)
+//            this.equipmentIntegration.registerRenderer();
         loadSettings();
         LOGGER.info("Spyglass Improvements Client Initialized");
     }
@@ -90,8 +92,8 @@ public class SpyglassImprovementsClient {
                     client.gameMode.useItem(player, InteractionHand.OFF_HAND);
                 } else if (slot >= 0) {
                     // If the item is in the hot-bar, select the item and interact with it.
-                    int oldSlot = player.getInventory().selected;
-                    player.getInventory().selected = slot;
+                    int oldSlot = player.getInventory().getSelectedSlot();
+                    player.getInventory().setSelectedSlot(slot);
                     slot = oldSlot;
                     client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
                 }
@@ -112,8 +114,9 @@ public class SpyglassImprovementsClient {
      * @return Slot ID, -1 if item was not found.
      */
     private int findSlotByItem(Inventory inventory, Item item) {
-        for(int i = 0; i < inventory.items.size(); ++i) {
-            if (!inventory.items.get(i).isEmpty() && inventory.items.get(i).is(item)) {
+        List<ItemStack> items = inventory.getNonEquipmentItems();
+        for(int i = 0; i < items.size(); ++i) {
+            if (!items.get(i).isEmpty() && items.get(i).is(item)) {
                 return i;
             }
         }

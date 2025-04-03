@@ -36,11 +36,11 @@ public class MinecraftClientMixin {
             int slot = SpyglassImprovementsClient.slot;
             if(player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
                 if(slot > 8 && instance.gameMode!=null) {
-                    instance.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, instance.player);
+                    instance.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
                     SpyglassImprovementsClient.slot = -1;
                 }
             }else if(slot >= 0 && slot <=8) {
-                player.getInventory().selected = slot;
+                player.getInventory().setSelectedSlot(slot);
             }
         }
     }
