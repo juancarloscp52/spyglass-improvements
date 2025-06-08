@@ -58,6 +58,7 @@ public class SpyglassConfigurationScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, delta);
         guiGraphics.drawString(this.font, title, this.width / 2 - font.width(title)/2, 20, 16777215);
     }

@@ -1,5 +1,7 @@
 package me.juancarloscp52.spyglass_improvements.fabric.mixin;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.juancarloscp52.spyglass_improvements.client.MouseEvents;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.util.SmoothDouble;
@@ -10,7 +12,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MouseHandler.class)
@@ -32,20 +33,22 @@ public abstract class MouseMixin {
         spyglass_improvements$mouseEvents.onScroll(vertical,ci);
     }
 
-    @ModifyVariable(method = "turnPlayer", at=@At("STORE"), ordinal = 1)
-    public double modifyDisplacementX(double value, double d){
+    @ModifyVariable(method = "turnPlayer", at=@At("STORE"), ordinal = 2)
+    public double modifyDisplacementX(double value, @Local(ordinal = 1) double d){
         return spyglass_improvements$mouseEvents.onDisplacementX(value, d, smoothTurnX, accumulatedDX);
     }
 
-    @ModifyVariable(method = "turnPlayer", at=@At("STORE"), ordinal = 2)
-    public double modifyDisplacementY(double value, double d){
+    @ModifyVariable(method = "turnPlayer", at=@At("STORE"), ordinal = 3)
+    public double modifyDisplacementY(double value, @Local(ordinal = 1) double d){
         return spyglass_improvements$mouseEvents.onDisplacementY(value, d, smoothTurnY, accumulatedDY);
     }
 
-    @Redirect(method = "turnPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/util/SmoothDouble;reset()V", ordinal = 0))
-    public void cancelSmoothXReset(SmoothDouble instance){
+    @WrapWithCondition(method = "turnPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/util/SmoothDouble;reset()V", ordinal = 0))
+    public boolean cancelSmoothXReset(SmoothDouble instance){
+        return false;
     }
-    @Redirect(method = "turnPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/util/SmoothDouble;reset()V", ordinal = 1))
-    public void cancelSmoothYReset(SmoothDouble instance){
+    @WrapWithCondition(method = "turnPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/util/SmoothDouble;reset()V", ordinal = 1))
+    public boolean cancelSmoothYReset(SmoothDouble instance){
+        return false;
     }
 }

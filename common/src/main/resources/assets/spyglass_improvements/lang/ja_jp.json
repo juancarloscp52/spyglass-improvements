@@ -1,0 +1,16 @@
+{
+  "category.spyglass-improvements": "望遠鏡",
+  "key.spyglass-improvements.use": "望遠鏡を覗く",
+  "options.spyglass-improvements.zoomQuantity": "拡大率の増加幅：%s段階",
+  "options.spyglass-improvements.hideSettingsButton": "設定ボタンを隠す：%s",
+  "options.spyglass-improvements.hideSettingsButton.tooltip": "マインクラフトの設定画面からこのModの設定ボタンを隠します。Mod一覧から引き続きこの設定画面を開くことができます",
+  "options.spyglass-improvements.showCrosshair": "クロスヘアの表示：%s",
+  "options.spyglass-improvements.smoothCamera": "滑らかなカメラ動作：%s",
+  "options.spyglass-improvements.spyglassOverlay": "望遠鏡のオーバーレイ%s",
+  "options.spyglass-improvements.spyglassOverlay.Default": "デフォルト",
+  "options.spyglass-improvements.spyglassOverlay.Clear": "鮮明",
+  "options.spyglass-improvements.spyglassOverlay.Circle": "円",
+  "options.spyglass-improvements.spyglassOverlay.None": "無し",
+  "options.spyglass-improvements.title": "望遠鏡の設定",
+  "options.spyglass-improvements.reset": "設定のリセット"
+}

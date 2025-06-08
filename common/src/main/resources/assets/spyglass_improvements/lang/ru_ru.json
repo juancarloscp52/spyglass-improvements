@@ -1,0 +1,17 @@
+{
+  "category.spyglass-improvements": "Spyglass Improvements",
+  "key.spyglass-improvements.use": "Приблизить/Труба",
+  "options.spyglass-improvements.zoomQuantity": "Кол-во шагов масштаба: %s",
+  "options.spyglass-improvements.hideSettingsButton": "Скрыть кнопку настроек: %s",
+  "options.spyglass-improvements.hideSettingsButton.tooltip": "Скрыть кнопку настроек мода. Вы можете получить доступ к этому экрану из меню модов.",
+  "options.spyglass-improvements.showCrosshair": "Показать перекрестие: %s",
+  "options.spyglass-improvements.smoothCamera": "Плавная камера: %s",
+  "options.spyglass-improvements.spyglassOverlay": "Оверлей трубы: %s",
+  "options.spyglass-improvements.spyglassOverlay.0": "Стандартный",
+  "options.spyglass-improvements.spyglassOverlay.1": "Квадрат",
+  "options.spyglass-improvements.spyglassOverlay.2": "Круг",
+  "options.spyglass-improvements.spyglassOverlay.3": "Выключен",
+  "options.spyglass-improvements.title": "Настройки Spyglass Improvements",
+  "options.spyglass-improvements.reset": "Сбросить настройки"
+
+}

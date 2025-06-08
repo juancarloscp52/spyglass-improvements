@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[2,)"
+loaderVersion = "[46,)"
 issueTrackerURL="${issues}"
 license="${license}"
 showAsResourcePack=false
@@ -13,22 +13,22 @@ authors="${authors}"
 description="${description}"
 
 [[dependencies.${mod_id}]]
-modId = "neoforge"
-type = "required"
+modId = "forge"
+mandatory = true
 versionRange = "${neoforge_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"
-type = "required"
+mandatory = true
 versionRange = "${minecraft_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId="curios"
-type="optional"
+mandatory = false
 versionRange="${curios_range}"
 ordering="BEFORE"
 side="BOTH"

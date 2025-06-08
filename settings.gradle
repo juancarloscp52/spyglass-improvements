@@ -11,4 +11,4 @@ rootProject.name = 'spyglass_improvements'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
+include 'forge'

@@ -1,0 +1,17 @@
+{
+  "category.spyglass-improvements" : "望遠鏡改進 （Spyglass Improvements）",
+  "key.spyglass-improvements.use" : "使用望遠鏡",
+  "options.spyglass-improvements.zoomQuantity" : "縮放增量：%s 級",
+  "options.spyglass-improvements.hideSettingsButton" : "隱藏設定按鈕：%s",
+  "options.spyglass-improvements.hideSettingsButton.tooltip" : "隱藏 Minecraft 選項畫面中的設定按鈕。您仍然可以透過模組選單存取此畫面",
+  "options.spyglass-improvements.showCrosshair" : "顯示準心：%s",
+  "options.spyglass-improvements.smoothCamera" : "平滑攝影機：%s",
+  "options.spyglass-improvements.spyglassOverlay" : "望遠鏡覆蓋：%s",
+  "options.spyglass-improvements.spyglassOverlay.0" : "預設",
+  "options.spyglass-improvements.spyglassOverlay.1" : "清晰",
+  "options.spyglass-improvements.spyglassOverlay.2" : "圓圈",
+  "options.spyglass-improvements.spyglassOverlay.3" : "無",
+  "options.spyglass-improvements.title" : "望遠鏡改進設定",
+  "options.spyglass-improvements.reset" : "重設組態"
+
+}

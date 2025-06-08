@@ -1,7 +1,7 @@
 plugins {
-    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.10-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id 'com.gradleup.shadow' version '8.3.6' apply false
 }
 
 architectury {
@@ -10,7 +10,7 @@ architectury {
 
 allprojects {
     group = rootProject.maven_group
-    version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}+${project.name}"
+    version = rootProject.mod_version
 }
 
 subprojects {
@@ -20,7 +20,7 @@ subprojects {
 
     base {
         // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name"
+        archivesName = "$rootProject.archives_name-$project.name"
     }
 
     repositories {
@@ -29,6 +29,10 @@ subprojects {
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
+    }
+
+    loom {
+        silentMojangMappingsLicense()
     }
 
     dependencies {
@@ -42,12 +46,12 @@ subprojects {
         // If you remove this line, sources will not be generated.
         withSourcesJar()
 
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     tasks.withType(JavaCompile).configureEach {
-        it.options.release = 21
+        it.options.release = 17
     }
 
     processResources {
@@ -63,13 +67,13 @@ subprojects {
                 source: rootProject.source,
                 issues: rootProject.issues,
                 minecraft_range: rootProject.minecraft_range,
-                neoforge_range: rootProject.neoforge_range,
+                neoforge_range: rootProject.forge_range,
                 curios_range: curios_range
         ]
 
         inputs.properties(replaceProperties)
 
-        filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta', 'fabric.mod.json']) {
+        filesMatching(['META-INF/mods.toml', 'pack.mcmeta', 'fabric.mod.json']) {
             expand replaceProperties + [project: project]
         }
     }

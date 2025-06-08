@@ -13,12 +13,12 @@ public final class SpyglassImprovementsFabricClient implements ClientModInitiali
     @Override
     public void onInitializeClient() {
         KeyBindingHelper.registerKeyBinding(SpyglassImprovementsClient.useSpyglass);
-        IEquipmentIntegration trinkets = null;
-        if(FabricLoader.getInstance().isModLoaded("trinkets")){
-            trinkets = new TrinketsIntegration();
-            trinkets.registerRenderer();
+        IEquipmentIntegration integration = null;
+        if (FabricLoader.getInstance().isModLoaded("trinkets")){
+            integration = new TrinketsIntegration();
         }
-        SpyglassImprovementsClient.getInstance().init(trinkets);
+
+        SpyglassImprovementsClient.getInstance().init(integration);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> SpyglassImprovementsClient.getInstance().onClientTick(client));
     }
