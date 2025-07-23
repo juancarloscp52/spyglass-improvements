@@ -5,7 +5,6 @@ import com.mojang.authlib.GameProfile;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class AbstractClientPlayerEntityMixin extends Player {
 
 
-    public AbstractClientPlayerEntityMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
-        super(level, blockPos, f, gameProfile);
+    public AbstractClientPlayerEntityMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
 
     // Modify scoping FOV to the spyglass custom zoom level.
