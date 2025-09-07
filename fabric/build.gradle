@@ -43,6 +43,18 @@ repositories {
         url = uri("https://maven.wispforest.io/releases")
     }
     maven { url 'https://maven.su5ed.dev/releases' } //Accessories
+
+    exclusiveContent { // trinkets canary
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -54,7 +66,8 @@ dependencies {
 
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cc_version}"
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cc_version}"
-    modCompileOnly "dev.emi:trinkets:${rootProject.trinkets_version}"
+    //modCompileOnly "dev.emi:trinkets:${rootProject.trinkets_version}" // Trinkets official
+    modCompileOnly "maven.modrinth:trinkets-canary:${project.trinkets_version}" // trinkets canary
 
     modCompileOnly("io.wispforest:accessories-fabric:${project.accessories_version}")
 
