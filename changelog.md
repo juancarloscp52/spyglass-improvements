@@ -9,6 +9,16 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.9] - 2025-09-7 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21.5
+-   NeoForge: 1.21.5
+
+### Changes
+-   Use Trinkets Canary for newer trinket compatibility.
+-   Fixed Accessories compatibility.
+
 ## [1.5.8] - 2025-03-24 (fabric, neoforge)
 
 Available versions:
