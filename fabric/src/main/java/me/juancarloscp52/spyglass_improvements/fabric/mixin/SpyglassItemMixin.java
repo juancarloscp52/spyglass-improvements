@@ -1,7 +1,8 @@
 package me.juancarloscp52.spyglass_improvements.fabric.mixin;
 
-import io.wispforest.accessories.api.Accessory;
-import io.wispforest.accessories.api.AccessoryRegistry;
+import io.wispforest.accessories.api.core.Accessory;
+import io.wispforest.accessories.api.core.AccessoryRegistry;
+import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpyglassItem;
@@ -23,7 +24,7 @@ public class SpyglassItemMixin extends Item implements Accessory {
     }
 
     @Override
-    public boolean canEquipFromUse(ItemStack stack) {
+    public boolean canEquipFromUse(ItemStack stack, SlotReference reference) {
         return false;
     }
 }
