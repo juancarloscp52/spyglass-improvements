@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     // Set the spyglass overlay depending on the selected one.
-    @ModifyArg(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V"),index = 1)
+    @ModifyArg(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V"),index = 1)
     public ResourceLocation setTexture(ResourceLocation resourceLocation){
         return switch (SpyglassImprovementsClient.getInstance().settings.overlay) {
             case 1 -> ResourceLocation.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_clear.png");
