@@ -22,7 +22,7 @@ public class SpyglassMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if(mixinClassName.equals("me.juancarloscp52.spyglass_improvements.neoforge.mixin.SpyglassItemMixin")){
-            if(FMLLoader.getLoadingModList().getModFileById("accessories")!=null){
+            if(FMLLoader.getCurrent().getLoadingModList().getModFileById("accessories")!=null){
                 LogManager.getLogger("SpyglassImprovements").info("Spyglass registered as Accessory");
                 return true;
             }

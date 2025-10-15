@@ -7,6 +7,7 @@ import me.juancarloscp52.spyglass_improvements.mixin.MinecraftClientInvoker;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -45,12 +46,13 @@ public class SpyglassImprovementsClient {
     // Zoom multiplier
     public static float MULTIPLIER = .1f;
 
+    public static final KeyMapping.Category SPYGLASS_IMPROVEMENTS = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("spyglass-improvements", "category"));
 
     public static KeyMapping useSpyglass = new KeyMapping(
             "key.spyglass-improvements.use",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_Z,
-            "category.spyglass-improvements");
+            SPYGLASS_IMPROVEMENTS);
 
     public void init(IEquipmentIntegration equipmentIntegration) {
         INSTANCE = this;
