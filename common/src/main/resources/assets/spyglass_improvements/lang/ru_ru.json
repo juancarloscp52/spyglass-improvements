@@ -1,5 +1,5 @@
 {
-  "category.spyglass-improvements": "Spyglass Improvements",
+  "key.category.spyglass-improvements.spyglass": "Spyglass Improvements",
   "key.spyglass-improvements.use": "Приблизить/Труба",
   "options.spyglass-improvements.zoomQuantity": "Кол-во шагов масштаба: %s",
   "options.spyglass-improvements.hideSettingsButton": "Скрыть кнопку настроек: %s",

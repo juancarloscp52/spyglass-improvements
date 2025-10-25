@@ -46,7 +46,7 @@ public class SpyglassImprovementsClient {
     // Zoom multiplier
     public static float MULTIPLIER = .1f;
 
-    public static final KeyMapping.Category SPYGLASS_IMPROVEMENTS = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("spyglass-improvements", "category"));
+    public static final KeyMapping.Category SPYGLASS_IMPROVEMENTS = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("spyglass-improvements", "spyglass"));
 
     public static KeyMapping useSpyglass = new KeyMapping(
             "key.spyglass-improvements.use",

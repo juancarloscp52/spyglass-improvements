@@ -1,5 +1,5 @@
 {
-  "category.spyglass-improvements" : "望遠鏡改進 （Spyglass Improvements）",
+  "key.category.spyglass-improvements.spyglass" : "望遠鏡改進 （Spyglass Improvements）",
   "key.spyglass-improvements.use" : "使用望遠鏡",
   "options.spyglass-improvements.zoomQuantity" : "縮放增量：%s 級",
   "options.spyglass-improvements.hideSettingsButton" : "隱藏設定按鈕：%s",

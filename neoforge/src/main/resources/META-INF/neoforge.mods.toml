@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[2,)"
+loaderVersion = "[10,)"
 issueTrackerURL="${issues}"
 license="${license}"
 showAsResourcePack=false
