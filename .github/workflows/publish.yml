@@ -35,7 +35,7 @@ on:
         type: number
       modVersion:
         required: true
-        default: '1.5.9'
+        default: '1.5.10'
         description: 'Mod version string. Ex: 1.5'
         type: string
       releaseName:

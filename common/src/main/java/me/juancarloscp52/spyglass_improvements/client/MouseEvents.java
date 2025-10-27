@@ -16,8 +16,8 @@ public class MouseEvents {
         float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll().get() ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity().get());
         LocalPlayer player = Minecraft.getInstance().player;
         if(player != null && player.isScoping() && Minecraft.getInstance().options.getCameraType().isFirstPerson()){
-            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* SpyglassImprovementsClient.getInstance().settings.multiplierDelta), .1f,.8f);
-            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER)));
+            float step = SpyglassImprovementsClient.MULTIPLIER*SpyglassImprovementsClient.getInstance().settings.multiplierDelta;
+            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* step), .0001f,.8f);            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER)));
             ci.cancel();
         }
     }
