@@ -49,6 +49,8 @@ public class SpyglassConfigurationScreen extends Screen {
         this.addRenderableWidget(hideButton);
         this.reset = Button.builder(Component.translatable("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
+            if(SpyglassImprovementsClient.getInstance().forge)
+                SpyglassImprovementsClient.getInstance().settings.hideSettingsButton=true;
             onDone();
         }).pos(this.width / 2 - 100, this.height / 6 + 144).width(200).build();
         this.addRenderableWidget(reset);

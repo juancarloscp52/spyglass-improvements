@@ -44,6 +44,7 @@ public class SpyglassImprovementsClient {
     public static int slot = -1;
     // Zoom multiplier
     public static float MULTIPLIER = .1f;
+    public boolean forge = false;
 
 
     public static KeyMapping useSpyglass = new KeyMapping(
@@ -53,11 +54,14 @@ public class SpyglassImprovementsClient {
             "category.spyglass-improvements");
 
     public void init(IEquipmentIntegration equipmentIntegration) {
+        init(equipmentIntegration, false);
+    }
+
+    public void init(IEquipmentIntegration equipmentIntegration, boolean forge) {
         INSTANCE = this;
         this.equipmentIntegration = equipmentIntegration;
-//        if(this.equipmentIntegration!=null)
-//            this.equipmentIntegration.registerRenderer();
-        loadSettings();
+        this.forge = forge;
+        loadSettings(forge);
         LOGGER.info("Spyglass Improvements Client Initialized");
     }
 
@@ -129,11 +133,10 @@ public class SpyglassImprovementsClient {
             return;
 
         force_spyglass = true;
-        //ClientPlayNetworking.send(new SpyglassTogglePacket(true));
         player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
     }
 
-    public void loadSettings() {
+    public void loadSettings(boolean forge) {
         File file = new File("./config/spyglass-improvements/settings.json");
         Gson gson = new Gson();
         if (file.exists()) {
@@ -146,6 +149,8 @@ public class SpyglassImprovementsClient {
             }
         } else {
             settings = new Settings();
+            if(forge)
+                settings.hideSettingsButton = true;  //default
             saveSettings();
         }
     }

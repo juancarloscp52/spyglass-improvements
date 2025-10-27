@@ -11,33 +11,28 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod.EventBusSubscriber(modid = SpyglassImprovementsClient.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 @Mod(value = SpyglassImprovementsClient.MOD_ID)
 public class SpyglassImprovementsClientForge {
 
-    public SpyglassImprovementsClientForge(){
+    public SpyglassImprovementsClientForge(FMLJavaModLoadingContext context){
         MinecraftForge.EVENT_BUS.addListener(this::onClientTick);
+        context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory(
+                        (minecraft, screen) -> new SpyglassConfigurationScreen(screen)));
+
         IEquipmentIntegration curios = null;
         if (ModList.get().isLoaded("curios")) {
             curios = new CuriosIntegration();
         }
-        SpyglassImprovementsClient.getInstance().init(curios);
+        SpyglassImprovementsClient.getInstance().init(curios, true);
     }
 
     public void onClientTick(TickEvent.ClientTickEvent event){
         SpyglassImprovementsClient.getInstance().onClientTick(Minecraft.getInstance());
-    }
-
-    @SubscribeEvent
-    public void init(final FMLClientSetupEvent event) {
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
-                () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (minecraft, screen) -> new SpyglassConfigurationScreen(screen))
-        );
     }
 
     @SubscribeEvent
