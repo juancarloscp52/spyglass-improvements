@@ -9,7 +9,6 @@ import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +19,7 @@ public class SpyglassImprovementsClientForge {
 
     public SpyglassImprovementsClientForge(FMLJavaModLoadingContext context){
         MinecraftForge.EVENT_BUS.addListener(this::onClientTick);
+        context.getModEventBus().addListener(this::registerKeymapping);
         context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(
                         (minecraft, screen) -> new SpyglassConfigurationScreen(screen)));
@@ -35,7 +35,6 @@ public class SpyglassImprovementsClientForge {
         SpyglassImprovementsClient.getInstance().onClientTick(Minecraft.getInstance());
     }
 
-    @SubscribeEvent
     public void registerKeymapping(RegisterKeyMappingsEvent event){
         event.register(SpyglassImprovementsClient.useSpyglass);
     }
