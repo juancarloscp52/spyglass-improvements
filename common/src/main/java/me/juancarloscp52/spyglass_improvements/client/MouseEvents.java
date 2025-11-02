@@ -13,11 +13,12 @@ public class MouseEvents {
     Minecraft minecraft = Minecraft.getInstance();
 
     public void onScroll(double vertical, CallbackInfo ci){
+        Settings settings = SpyglassImprovementsClient.getInstance().settings;
         float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll().get() ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity().get());
         LocalPlayer player = Minecraft.getInstance().player;
         if(player != null && player.isScoping() && Minecraft.getInstance().options.getCameraType().isFirstPerson()){
-            float step = SpyglassImprovementsClient.MULTIPLIER*SpyglassImprovementsClient.getInstance().settings.multiplierDelta;
-            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* step), .0001f,.8f);
+            float step = SpyglassImprovementsClient.MULTIPLIER*settings.multiplierDelta;
+            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* step), settings.extraZoom? .0001f: .1f,.8f);
             player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER)));
             ci.cancel();
         }

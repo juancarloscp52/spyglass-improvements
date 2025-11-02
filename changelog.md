@@ -9,6 +9,17 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.12] - 2025-11-02 (fabric, neoforge, forge)
+Available versions:
+-   Fabric: 1.20, 1.20.1, 1.21.9, 1.21.10
+-   Forge: 1.20, 1.20.1
+-   Neoforge: 1.21.9, 1.21.10
+
+### Changes
+-   Added Option to toggle extra zoom.
+-   Added Option to force spyglass even if no spyglass is in inventory.
+-   Reworked settings screen
+
 ## [1.5.11] - 2025-10-28 (fabric, forge)
 Available versions:
 -   Fabric: 1.20, 1.20.1
