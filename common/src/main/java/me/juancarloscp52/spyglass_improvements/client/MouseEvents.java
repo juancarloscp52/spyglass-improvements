@@ -11,13 +11,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseEvents {
 
     Minecraft minecraft = Minecraft.getInstance();
+    Settings settings = SpyglassImprovementsClient.getInstance().settings;
 
     public void onScroll(double vertical, CallbackInfo ci){
         float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll().get() ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity().get());
         LocalPlayer player = Minecraft.getInstance().player;
         if(player != null && player.isScoping() && Minecraft.getInstance().options.getCameraType().isFirstPerson()){
-            float step = SpyglassImprovementsClient.MULTIPLIER*SpyglassImprovementsClient.getInstance().settings.multiplierDelta;
-            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* step), .0001f,.8f);            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER)));
+            float step = SpyglassImprovementsClient.MULTIPLIER*settings.multiplierDelta;
+            SpyglassImprovementsClient.MULTIPLIER = Mth.clamp(SpyglassImprovementsClient.MULTIPLIER-(d* step), settings.extraZoom? .0001f: .1f,.8f);
+            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f+(1*(1- SpyglassImprovementsClient.MULTIPLIER)*(1- SpyglassImprovementsClient.MULTIPLIER)));
             ci.cancel();
         }
     }
@@ -30,7 +32,7 @@ public class MouseEvents {
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);
 
-            if(SpyglassImprovementsClient.getInstance().settings.smoothCamera){
+            if(settings.smoothCamera){
                 displacementX = smoothTurnX.getNewDeltaValue(accumulatedDX * smoothSensitivity, d * smoothSensitivity);
             }else{
                 smoothTurnX.reset();
@@ -50,7 +52,7 @@ public class MouseEvents {
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);
 
-            if(SpyglassImprovementsClient.getInstance().settings.smoothCamera){
+            if(settings.smoothCamera){
                 displacementY = smoothTurnY.getNewDeltaValue(accumulatedDY * smoothSensitivity, d * smoothSensitivity);
             }else{
                 smoothTurnY.reset();

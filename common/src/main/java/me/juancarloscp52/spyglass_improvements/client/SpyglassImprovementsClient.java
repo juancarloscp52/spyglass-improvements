@@ -1,6 +1,7 @@
 package me.juancarloscp52.spyglass_improvements.client;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
 import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentIntegration;
 import me.juancarloscp52.spyglass_improvements.mixin.MinecraftClientInvoker;
@@ -57,8 +58,6 @@ public class SpyglassImprovementsClient {
     public void init(IEquipmentIntegration equipmentIntegration) {
         INSTANCE = this;
         this.equipmentIntegration = equipmentIntegration;
-//        if(this.equipmentIntegration!=null)
-//            this.equipmentIntegration.registerRenderer();
         loadSettings();
         LOGGER.info("Spyglass Improvements Client Initialized");
     }
@@ -81,7 +80,7 @@ public class SpyglassImprovementsClient {
             } else if (player.getMainHandItem().getItem().equals(Items.SPYGLASS)) {
                 // In main hand
                 client.gameMode.useItem(player, InteractionHand.MAIN_HAND);
-            } else if (player.isCreative()) {
+            } else if (player.isCreative() || settings.userForceSpyglass) {
                 // On creative mode, we do not need to have a spyglass to use it
                 forceUseSpyglass(player);
             } else if (equipmentIntegration!=null && equipmentIntegration.isPlayerUsingSpyglass(player)) {
@@ -153,7 +152,7 @@ public class SpyglassImprovementsClient {
     }
 
     public void saveSettings() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         File file = new File("./config/spyglass-improvements/settings.json");
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdir();
