@@ -1,8 +1,8 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
-import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
-import net.minecraft.client.gui.components.Button;
+//import me.juancarloscp52.spyglass_improvements.client.SpyglassConfigurationScreen;
+//import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
+//import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -18,10 +18,10 @@ public class OptionsScreenMixin extends Screen {
         super(title);
     }
 
-    @Inject(method = "init", at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;", ordinal = 7))
+    @Inject(method = "init", at = @At(value = "RETURN"))
     public void addBedrockIfyButtonBelowSliders(CallbackInfo ci) {
-        if(!SpyglassImprovementsClient.getInstance().settings.hideSettingsButton)
-            this.addRenderableWidget(Button.builder(Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))).pos(this.width / 2 - 155, this.height / 6 + 21 - 6).width(310).build());
+//        if(!SpyglassImprovementsClient.getInstance().settings.hideSettingsButton)
+//            this.addRenderableWidget(new Button(this.width / 2 - 155, this.height / 6 + 21 - 6, 310, 20, Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this)));
     }
 
 }
