@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +28,7 @@ public class OptionsScreenMixin extends Screen {
                             this.height / 6 + 21 - 6,
                             310,
                             20,
-                            Component.translatable("options.spyglass-improvements.title"),
+                            new TranslatableComponent("options.spyglass-improvements.title"),
                             button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))
                     )
             );

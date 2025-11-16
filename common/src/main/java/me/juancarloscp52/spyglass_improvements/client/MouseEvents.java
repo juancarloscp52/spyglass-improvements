@@ -14,7 +14,7 @@ public class MouseEvents {
 
     public void onScroll(double vertical, CallbackInfo ci){
         Settings settings = SpyglassImprovementsClient.getInstance().settings;
-        float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll().get() ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity().get());
+        float d = (float) ((Minecraft.getInstance().options.discreteMouseScroll ? Math.signum(vertical) : vertical) * Minecraft.getInstance().options.mouseWheelSensitivity);
         LocalPlayer player = Minecraft.getInstance().player;
         if(player != null && player.isScoping() && Minecraft.getInstance().options.getCameraType().isFirstPerson()){
             float step = SpyglassImprovementsClient.MULTIPLIER*settings.multiplierDelta;
@@ -27,7 +27,7 @@ public class MouseEvents {
     public double onDisplacementX(double value, double d, SmoothDouble smoothTurnX, double accumulatedDX){
         if (spyglass_improvements$isPlayerScoping()){
             double displacementX;
-            double sensitivity = this.minecraft.options.sensitivity().get() * .6 + .2;
+            double sensitivity = this.minecraft.options.sensitivity * .6 + .2;
             double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);
@@ -47,7 +47,7 @@ public class MouseEvents {
     public double onDisplacementY(double value, double d, SmoothDouble smoothTurnY, double accumulatedDY){
         if (spyglass_improvements$isPlayerScoping()){
             double displacementY;
-            double sensitivity = this.minecraft.options.sensitivity().get() * .6 + .2;
+            double sensitivity = this.minecraft.options.sensitivity * .6 + .2;
             double baseSensitivity = (sensitivity * sensitivity * sensitivity) * 8.0;
             double spyglassSensitivity = baseSensitivity * SpyglassImprovementsClient.MULTIPLIER;
             double smoothSensitivity= baseSensitivity * Mth.clamp(SpyglassImprovementsClient.MULTIPLIER*3,0.3f,0.85f);

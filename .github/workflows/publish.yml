@@ -22,15 +22,15 @@ on:
         type: boolean
       minecraftVersion:
         description: 'Minecraft Version. Ex: [1.20.2,1.21)'
-        default: '[1.19,1.19.3)'
+        default: '[1.18.2,1.19)'
         required: true
       minecraftBaseVersion:
         description: 'Minecraft Base Version. Ex: 1.20.2'
-        default: '1.19'
+        default: '1.18.2'
         required: true
       javaVersion:
         required: true
-        default: 21
+        default: 17
         description: 'Java Version'
         type: number
       modVersion:

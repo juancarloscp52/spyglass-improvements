@@ -4,8 +4,7 @@ plugins {
 
 loom {
     forge {
-        mixinConfig "spyglass_improvements.common.mixins.json"
-        mixinConfigs "spyglass_improvements.forge.mixins.json"
+        mixinConfigs ("spyglass_improvements.forge.mixins.json", "spyglass_improvements.common.mixins.json")
     }
 
 }

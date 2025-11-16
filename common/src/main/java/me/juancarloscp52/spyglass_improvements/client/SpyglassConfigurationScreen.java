@@ -6,12 +6,13 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.function.Consumer;
 
 public class SpyglassConfigurationScreen extends Screen {
 
-    private static final Component TITLE = Component.translatable("options.spyglass-improvements.title");
+    private static final Component TITLE = new TranslatableComponent("options.spyglass-improvements.title");
     private final Screen lastScreen;
     static final int LEFT_OFFSET = -154;
     static final int RIGHT_OFFSET = 4;
@@ -36,7 +37,7 @@ public class SpyglassConfigurationScreen extends Screen {
                 20,
                 "options.spyglass-improvements.zoomQuantity",
                 (settings.multiplierDelta-.1f)*1.25f,
-                (slider, translationKey, value) -> Component.translatable("options.spyglass-improvements.zoomQuantity",
+                (slider, translationKey, value) -> new TranslatableComponent("options.spyglass-improvements.zoomQuantity",
                 String.format("%.2f",.1f+((float)value)*.8f)),
                 value -> settings.multiplierDelta = .1f+((float)value)*.8f);
 
@@ -60,31 +61,31 @@ public class SpyglassConfigurationScreen extends Screen {
     }
 
     private Button getSpyglassOverlayButton(int x, int y){
-        return new Button(x,y,WIDGET_WIDTH,20,Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
+        return new Button(x,y,WIDGET_WIDTH,20,new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)), button -> {
             settings.overlay++;
             if(settings.overlay>3)
                 settings.overlay=0;
-            button.setMessage(Component.translatable("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.spyglassOverlay", I18n.get("options.spyglass-improvements.spyglassOverlay."+settings.overlay)));
         });
     }
 
     private Button getShowCrosshairButton(int x, int y){
-        return new Button(x, y, WIDGET_WIDTH, 20, Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO),button -> {
+        return new Button(x, y, WIDGET_WIDTH, 20, new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO),button -> {
             settings.showCrossHair=!settings.showCrossHair;
-            button.setMessage(Component.translatable("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.showCrosshair", settings.showCrossHair? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
     }
 
     private Button getSmoothCameraButton(int x, int y){
-        return new Button(x, y, WIDGET_WIDTH, 20,Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        return new Button(x, y, WIDGET_WIDTH, 20,new TranslatableComponent("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.smoothCamera=!settings.smoothCamera;
-            button.setMessage(Component.translatable("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.smoothCamera", settings.smoothCamera? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
     }
 
     private Button getHideSettingsButton(int x, int y){
         Button.OnTooltip onTooltip =  new Button.OnTooltip() {
-            private final Component text = Component.translatable("options.spyglass-improvements.hideSettingsButton.tooltip");
+            private final Component text = new TranslatableComponent("options.spyglass-improvements.hideSettingsButton.tooltip");
 
             @Override
             public void onTooltip(Button button, PoseStack poseStack, int ix, int jx) {
@@ -99,22 +100,22 @@ public class SpyglassConfigurationScreen extends Screen {
                 consumer.accept(this.text);
             }
         };
-        return new Button(x, y, WIDGET_WIDTH, 20, Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        return new Button(x, y, WIDGET_WIDTH, 20, new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.hideSettingsButton=!settings.hideSettingsButton;
-            button.setMessage(Component.translatable("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.hideSettingsButton", settings.hideSettingsButton? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         }, onTooltip);
     }
 
     private Button getExtraZoomButton(int x, int y){
-        return new Button(x, y, WIDGET_WIDTH, 20, Component.translatable("options.spyglass-improvements.extraZoom", settings.extraZoom ? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        return new Button(x, y, WIDGET_WIDTH, 20, new TranslatableComponent("options.spyglass-improvements.extraZoom", settings.extraZoom ? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.extraZoom=!settings.extraZoom;
-            button.setMessage(Component.translatable("options.spyglass-improvements.extraZoom", settings.extraZoom ? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.extraZoom", settings.extraZoom ? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         });
     }
 
     private Button getForceSpyglassButton(int x, int y){
         Button.OnTooltip onTooltip =  new Button.OnTooltip() {
-            private final Component text = Component.translatable("options.spyglass-improvements.forceSpyglass.tooltip");
+            private final Component text = new TranslatableComponent("options.spyglass-improvements.forceSpyglass.tooltip");
 
             @Override
             public void onTooltip(Button button, PoseStack poseStack, int ix, int jx) {
@@ -128,9 +129,9 @@ public class SpyglassConfigurationScreen extends Screen {
                 consumer.accept(this.text);
             }
         };
-        return new Button(x, y, WIDGET_WIDTH, 20, Component.translatable("options.spyglass-improvements.forceSpyglass", settings.userForceSpyglass ? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
+        return new Button(x, y, WIDGET_WIDTH, 20, new TranslatableComponent("options.spyglass-improvements.forceSpyglass", settings.userForceSpyglass ? CommonComponents.GUI_YES:CommonComponents.GUI_NO), button -> {
             settings.userForceSpyglass=!settings.userForceSpyglass;
-            button.setMessage(Component.translatable("options.spyglass-improvements.forceSpyglass", settings.userForceSpyglass ? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
+            button.setMessage(new TranslatableComponent("options.spyglass-improvements.forceSpyglass", settings.userForceSpyglass ? CommonComponents.GUI_YES:CommonComponents.GUI_NO));
         },onTooltip);
     }
 
@@ -139,7 +140,7 @@ public class SpyglassConfigurationScreen extends Screen {
     }
 
     private Button getResetButton(int x, int y){
-        return new Button(x, y, 200, 20,Component.translatable("options.spyglass-improvements.reset"), button -> {
+        return new Button(x, y, 200, 20,new TranslatableComponent("options.spyglass-improvements.reset"), button -> {
             SpyglassImprovementsClient.getInstance().settings=new Settings();
             SpyglassImprovementsClient.getInstance().settings.hideSettingsButton = SpyglassImprovementsClient.getInstance().forge;
             onDone();

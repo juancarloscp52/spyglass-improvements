@@ -5,8 +5,8 @@ import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentInt
 import me.juancarloscp52.spyglass_improvements.forge.client.integratons.CuriosIntegration;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,9 +21,10 @@ public class SpyglassImprovementsClientForge {
 
     @SubscribeEvent
     public static void initClient (final FMLClientSetupEvent event){
+        ClientRegistry.registerKeyBinding(SpyglassImprovementsClient.useSpyglass);
         MinecraftForge.EVENT_BUS.addListener(SpyglassImprovementsClientForge::onClientTick);
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
-                () -> new ConfigScreenHandler.ConfigScreenFactory(
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class,
+                () -> new ConfigGuiHandler.ConfigGuiFactory(
                         (minecraft, screen) -> new SpyglassConfigurationScreen(screen)));
 
         IEquipmentIntegration curios = null;
@@ -36,10 +37,5 @@ public class SpyglassImprovementsClientForge {
 
     public static void onClientTick(TickEvent.ClientTickEvent event){
         SpyglassImprovementsClient.getInstance().onClientTick(Minecraft.getInstance());
-    }
-
-    @SubscribeEvent
-    public static void registerKeymapping(RegisterKeyMappingsEvent event){
-        event.register(SpyglassImprovementsClient.useSpyglass);
     }
 }
