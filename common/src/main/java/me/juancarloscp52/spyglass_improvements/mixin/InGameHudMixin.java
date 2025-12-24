@@ -6,7 +6,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     // Set the spyglass overlay depending on the selected one.
-    @ModifyArg(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V"),index = 1)
-    public ResourceLocation setTexture(ResourceLocation resourceLocation){
+    @ModifyArg(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"),index = 1)
+    public Identifier setTexture(Identifier identifier){
         return switch (SpyglassImprovementsClient.getInstance().settings.overlay) {
-            case 1 -> ResourceLocation.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_clear.png");
-            case 2 -> ResourceLocation.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_circle.png");
-            default -> resourceLocation;
+            case 1 -> Identifier.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_clear.png");
+            case 2 -> Identifier.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_circle.png");
+            default -> identifier;
         };
     }
     // toggle renderCrosshair depending on settings

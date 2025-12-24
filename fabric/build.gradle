@@ -69,7 +69,7 @@ dependencies {
     //modCompileOnly "dev.emi:trinkets:${rootProject.trinkets_version}" // Trinkets official
     modCompileOnly "maven.modrinth:trinkets-canary:${project.trinkets_version}" // trinkets canary
 
-    modCompileOnly("io.wispforest:accessories-fabric:${project.accessories_version}")
+    //modCompileOnly("io.wispforest:accessories-fabric:${project.accessories_version}")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
