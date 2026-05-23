@@ -6,7 +6,7 @@
   "client": [
     "AbstractClientPlayerEntityMixin",
     "CameraTypeMixin",
-    "GameRendererMixin",
+    "CameraMixin",
     "InGameHudMixin",
     "KeyBindingInvoker",
     "MinecraftClientInvoker",

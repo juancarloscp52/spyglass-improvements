@@ -41,7 +41,7 @@ dependencies {
     //runtimeOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}"
     compileOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    common(project(path: ':common')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     //compileOnly("io.wispforest:accessories-neoforge:${project.accessories_version}")
@@ -49,9 +49,7 @@ dependencies {
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+    archiveClassifier = ""
 }
 
-remapJar {
-    input.set shadowJar.archiveFile
-}
+tasks.build.dependsOn shadowJar

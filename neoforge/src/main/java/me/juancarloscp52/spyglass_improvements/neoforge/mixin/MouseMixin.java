@@ -32,12 +32,12 @@ public abstract class MouseMixin {
         spyglass_improvements$mouseEvents.onScroll(vertical,ci);
     }
 
-    @ModifyVariable(method = "turnPlayer", at=@At("STORE"),name = {"d0"})
+    @ModifyVariable(method = "turnPlayer", at=@At("STORE"),name = {"xo"})
     public double modifyDisplacementX(double value, double d){
         return spyglass_improvements$mouseEvents.onDisplacementX(value, d, smoothTurnX, accumulatedDX);
     }
 
-    @ModifyVariable(method = "turnPlayer", at=@At("STORE"),name = {"d1"})
+    @ModifyVariable(method = "turnPlayer", at=@At("STORE"),name = {"yo"})
     public double modifyDisplacementY(double value, double d){
         return spyglass_improvements$mouseEvents.onDisplacementY(value, d, smoothTurnY, accumulatedDY);
     }

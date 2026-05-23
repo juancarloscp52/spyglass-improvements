@@ -12,7 +12,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -89,7 +89,7 @@ public class SpyglassImprovementsClient {
             } else {
                 if (slot >= 9) {
                     // If the spyglass is in the inventory, move it to the offhand
-                    client.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
+                    client.gameMode.handleContainerInput(0, slot, 40, ContainerInput.SWAP, player);
                     client.gameMode.useItem(player, InteractionHand.OFF_HAND);
                 } else if (slot >= 0) {
                     // If the item is in the hot-bar, select the item and interact with it.

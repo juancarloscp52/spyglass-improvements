@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,7 +36,7 @@ public class MinecraftClientMixin {
             int slot = SpyglassImprovementsClient.slot;
             if(player.getOffhandItem().getItem().equals(Items.SPYGLASS)){
                 if(slot > 8 && instance.gameMode!=null) {
-                    instance.gameMode.handleInventoryMouseClick(0, slot, 40, ClickType.SWAP, player);
+                    instance.gameMode.handleContainerInput(0, slot, 40, ContainerInput.SWAP, player);
                     SpyglassImprovementsClient.slot = -1;
                 }
             }else if(slot >= 0 && slot <=8) {
