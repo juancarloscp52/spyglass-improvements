@@ -4,8 +4,8 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class InGameHudMixin {
 
     // Set the spyglass overlay depending on the selected one.
@@ -33,8 +33,8 @@ public class InGameHudMixin {
     }
 
     // Toggle overlay.
-    @WrapWithCondition(method = "extractCameraOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;extractSpyglassOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;F)V"))
-    public boolean DoNotRenderIfNoneOverlay(Gui instance, GuiGraphicsExtractor graphics, float scale){ // No overlay.
+    @WrapWithCondition(method = "extractCameraOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Hud;extractSpyglassOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;F)V"))
+    public boolean DoNotRenderIfNoneOverlay(Hud instance, GuiGraphicsExtractor graphics, float scale){ // No overlay.
         return SpyglassImprovementsClient.getInstance().settings.overlay != 3;
     }
 
