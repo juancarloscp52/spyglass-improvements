@@ -24,7 +24,7 @@ public class OptionsScreenMixin extends Screen {
     @Inject(method = "init", at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/layouts/HeaderAndFooterLayout;addToContents(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
     public void addBedrockIfyButtonBelowSliders(CallbackInfo ci, LinearLayout linearLayout, LinearLayout linearLayout2, GridLayout gridLayout, GridLayout.RowHelper rowHelper) {
         if(!SpyglassImprovementsClient.getInstance().settings.hideSettingsButton)
-            rowHelper.addChild(Button.builder(Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.setScreen(new SpyglassConfigurationScreen(this))).build());
+            rowHelper.addChild(Button.builder(Component.translatable("options.spyglass-improvements.title"), button -> this.minecraft.gui.setScreen(new SpyglassConfigurationScreen(this))).build());
     }
 
 }

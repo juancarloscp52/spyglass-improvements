@@ -9,6 +9,14 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.14] - 2026-7-1 (fabric, neoforge)
+Available versions:
+-   Fabric: 26.2
+-   Neoforge: 26.2
+
+### Changes
+-   Port to 26.2
+
 ## [1.5.13] - 2026-5-23 (fabric, neoforge)
 Available versions:
 -   Fabric: 26.1 26.1.1 26.1.2
