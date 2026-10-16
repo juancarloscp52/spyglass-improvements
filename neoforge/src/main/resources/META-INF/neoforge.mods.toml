@@ -35,7 +35,7 @@ ordering="BEFORE"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="trinkets-updated"
+modId="trinkets_updated"
 type="optional"
 #versionRange="${curios_range}"
 ordering="BEFORE"
