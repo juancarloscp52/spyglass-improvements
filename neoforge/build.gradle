@@ -32,6 +32,10 @@ repositories {
     maven { url = "https://maven.theillusivec4.top/" } // Curios
     maven { url 'https://maven.wispforest.io/releases' } //Accessories
     maven { url 'https://maven.su5ed.dev/releases' } //Accessories
+    maven {  //trinkets
+        name = "Nucleoid"
+        url = 'https://maven.nucleoid.xyz/releases'
+    }
 }
 
 dependencies {
@@ -40,6 +44,8 @@ dependencies {
     // To test soft Curios dependency, (un)comment the runtimeOnly line below when running runClient and runServer tasks
     //runtimeOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}"
     compileOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api"
+
+    compileOnly "eu.pb4:trinkets:${project.trinkets_version}" // trinkets updated
 
     common(project(path: ':common')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')

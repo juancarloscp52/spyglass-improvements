@@ -8,6 +8,11 @@ repositories {
         url = uri("https://maven.wispforest.io/releases")
     }
     maven { url 'https://maven.su5ed.dev/releases' } //Accessories
+
+    maven {  //trinkets
+        name = "Nucleoid"
+        url = 'https://maven.nucleoid.xyz/releases'
+    }
 }
 
 dependencies {
@@ -16,4 +21,5 @@ dependencies {
     // Do NOT use other classes from Fabric Loader.
     implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     //compileOnly("io.wispforest:accessories-common:${project.accessories_version}")
+    compileOnly "eu.pb4:trinkets:${project.trinkets_version}" // trinkets updated
 }

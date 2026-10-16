@@ -2,7 +2,7 @@ package me.juancarloscp52.spyglass_improvements.fabric.client;
 
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentIntegration;
-import me.juancarloscp52.spyglass_improvements.fabric.client.integrations.TrinketsIntegration;
+import me.juancarloscp52.spyglass_improvements.integrations.TrinketsIntegration;
 import me.juancarloscp52.spyglass_improvements.integrations.AccessoriesIntegration;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -17,7 +17,7 @@ public final class SpyglassImprovementsFabricClient implements ClientModInitiali
         IEquipmentIntegration integration = null;
         if(FabricLoader.getInstance().isModLoaded("accessories")){
             integration = new AccessoriesIntegration();
-        } else if (FabricLoader.getInstance().isModLoaded("trinkets")){
+        } else if (FabricLoader.getInstance().isModLoaded("trinkets_updated")){
             integration = new TrinketsIntegration();
         }
 

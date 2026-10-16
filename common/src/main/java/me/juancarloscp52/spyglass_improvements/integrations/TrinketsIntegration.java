@@ -1,4 +1,4 @@
-package me.juancarloscp52.spyglass_improvements.fabric.client.integrations;
+package me.juancarloscp52.spyglass_improvements.integrations;
 
 import eu.pb4.trinkets.api.TrinketsApi;
 import me.juancarloscp52.spyglass_improvements.client.integrations.IEquipmentIntegration;
