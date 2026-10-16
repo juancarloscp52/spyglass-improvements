@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.io.FileReader;
@@ -51,8 +50,8 @@ public class SpyglassImprovementsClient {
 
     public static KeyMapping useSpyglass = new KeyMapping(
             "key.spyglass-improvements.use",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_Z,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_Z,
             SPYGLASS_IMPROVEMENTS);
 
     public void init(IEquipmentIntegration equipmentIntegration) {
