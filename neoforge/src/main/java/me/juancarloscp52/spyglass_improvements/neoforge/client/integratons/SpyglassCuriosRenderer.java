@@ -32,6 +32,6 @@ public class SpyglassCuriosRenderer implements ICurioRenderer {
             float netHeadYaw,
             float headPitch
     ) {
-        equipmentIntegration.render(stack,slotContext.entity(),poseStack,renderTypeBuffer,light);
+        equipmentIntegration.render(stack,slotContext.entity(),renderLayerParent.getModel(),poseStack,renderTypeBuffer,light);
     }
 }
