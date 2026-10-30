@@ -2,6 +2,8 @@ package me.juancarloscp52.spyglass_improvements.client.integrations;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -22,6 +24,7 @@ public interface IEquipmentIntegration {
     default void render(
     ItemStack stack,
     LivingEntity livingEntity,
+    EntityModel<?> entityModel,
     PoseStack poseStack,
     MultiBufferSource renderTypeBuffer,
     int light){
@@ -36,7 +39,9 @@ public interface IEquipmentIntegration {
 
         poseStack.pushPose();
 
-        if (livingEntity.isCrouching()) {
+        if (entityModel instanceof HumanoidModel<?> humanoidModel) {
+            humanoidModel.body.translateAndRotate(poseStack);
+        } else if (livingEntity.isCrouching()) {
             poseStack.translate(0.0F, 0.15F, 0.32F);
         }
 

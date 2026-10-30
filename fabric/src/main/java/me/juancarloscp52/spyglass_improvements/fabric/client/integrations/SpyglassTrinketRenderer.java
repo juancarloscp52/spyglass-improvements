@@ -18,6 +18,6 @@ public class SpyglassTrinketRenderer implements TrinketRenderer {
 
     @Override
     public void render(ItemStack itemStack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, LivingEntity livingEntity, float v, float v1, float v2, float v3, float v4, float v5) {
-        this.trinkets.render(itemStack, livingEntity, poseStack,multiBufferSource,i);
+        this.trinkets.render(itemStack, livingEntity, entityModel, poseStack,multiBufferSource,i);
     }
 }
